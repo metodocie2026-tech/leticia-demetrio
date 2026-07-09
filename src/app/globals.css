@@ -1,26 +1,112 @@
 @import "tailwindcss";
 
+/* ============================================================
+   COLOUR PALETTE — To retheme the entire site, only edit
+   the hex values in this :root block. Everything else
+   references these variables automatically.
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary — #ff006b hot pink, the Letícia brand colour */
+  --primary:        #ff006b;
+  --primary-light:  #ffe0ef;   /* ~12% tint on white  */
+  --primary-medium: #ff80b5;   /* 50% tint            */
+
+  /* Secondary — deep wine rose (gradient partner, dark accents) */
+  --secondary:       #8b0038;
+  --secondary-light: #f5e0eb;
+  --secondary-dark:  #5c0025;
+
+  /* Accent — slightly darker pink for hover / pressed states */
+  --accent:       #cc0054;
+  --accent-light: #ffd6e7;
+
+  /* Neutrals — built around the brand's black / white / #e1e1df grey */
+  --dark:    #111111;   /* editorial black — headings, dark sections */
+  --subtle:  #4a4a4a;   /* secondary text, mid-tone icons            */
+  --muted:   #9a9a97;   /* placeholders, disabled, captions          */
+  --neutral: #e1e1df;   /* borders, dividers, grey fills             */
+  --surface: #fafaf9;   /* light section & card backgrounds          */
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Colour utilities → bg-primary, text-secondary, border-accent, etc. */
+  --color-primary:          var(--primary);
+  --color-primary-light:    var(--primary-light);
+  --color-primary-medium:   var(--primary-medium);
+
+  --color-secondary:        var(--secondary);
+  --color-secondary-light:  var(--secondary-light);
+  --color-secondary-dark:   var(--secondary-dark);
+
+  --color-accent:           var(--accent);
+  --color-accent-light:     var(--accent-light);
+
+  --color-dark:             var(--dark);
+  --color-subtle:           var(--subtle);
+  --color-muted:            var(--muted);
+  --color-neutral:          var(--neutral);
+  --color-surface:          var(--surface);
+
+  /* Font-family utilities → font-heading, font-body */
+  --font-heading: var(--font-playfair), 'Playfair Display', Georgia, serif;
+  --font-body:    var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Base ─────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ffffff;
+  color: var(--dark);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* ── Utilities ────────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+/* ── Scroll-reveal animation ─────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Legal pages prose ────────────────────────────────────── */
+.prose-legal {
+  color: var(--subtle);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  line-height: 1.8;
+}
+.prose-legal p      { margin-bottom: 1.25rem; }
+.prose-legal h2     { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 700; color: var(--dark); margin: 2.5rem 0 0.75rem; }
+.prose-legal ul     { list-style: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; }
+.prose-legal li     { margin-bottom: 0.5rem; }
+.prose-legal section { margin-bottom: 0.5rem; }
+
+/* ── Scrollbar ────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 6px; }
+::-webkit-scrollbar-track  { background: var(--surface); }
+::-webkit-scrollbar-thumb  { background: var(--primary-medium); border-radius: 3px; }
