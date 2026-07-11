@@ -1,120 +1,122 @@
-import { redirect } from 'next/navigation'
-import Image from 'next/image'
-import Link from 'next/link'
-import { Shield, Star } from 'lucide-react'
-import { EventHeader } from '@/components/evento/EventHeader'
-import { WhatsAppFloat } from '@/components/sections/WhatsAppFloat'
-import { MatriculasCta } from '@/components/evento/MatriculasCta'
-import { getSettings } from '@/lib/settings'
+import { redirect } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import { Shield, Star } from "lucide-react";
+import { EventHeader } from "@/components/evento/EventHeader";
+import { WhatsAppFloat } from "@/components/sections/WhatsAppFloat";
+import { MatriculasCta } from "@/components/evento/MatriculasCta";
+import { getSettings } from "@/lib/settings";
 
-const SUPORTE_MSG = 'Olá Letícia! Tenho dúvidas sobre o Método CIE.'
+const SUPORTE_MSG = "Olá Letícia! Tenho dúvidas sobre o Método CIE.";
 
 function getEmbedUrl(url: string): string {
-  if (!url) return ''
-  if (url.includes('youtube.com/embed/') || url.includes('player.vimeo')) return url
-  const watchMatch = url.match(/[?&]v=([^&]+)/)
-  if (watchMatch) return `https://www.youtube.com/embed/${watchMatch[1]}?rel=0`
-  const shortMatch = url.match(/youtu\.be\/([^?]+)/)
-  if (shortMatch) return `https://www.youtube.com/embed/${shortMatch[1]}?rel=0`
-  return url
+  if (!url) return "";
+  if (url.includes("youtube.com/embed/") || url.includes("player.vimeo"))
+    return url;
+  const watchMatch = url.match(/[?&]v=([^&]+)/);
+  if (watchMatch) return `https://www.youtube.com/embed/${watchMatch[1]}?rel=0`;
+  const shortMatch = url.match(/youtu\.be\/([^?]+)/);
+  if (shortMatch) return `https://www.youtube.com/embed/${shortMatch[1]}?rel=0`;
+  return url;
 }
-
 
 const CIE_PILLARS = [
   {
-    letter: 'C',
-    title: 'Conhecer',
-    desc: 'Você distingue imagem percebida de imagem pretendida e entende o que realmente quer comunicar.',
+    letter: "C",
+    title: "Conhecer",
+    desc: "Você distingue imagem percebida de imagem pretendida e entende o que realmente quer comunicar.",
   },
   {
-    letter: 'I',
-    title: 'Identificar',
-    desc: 'Você identifica preferências reais de modelagem, tecido, cor e estampa, além do estilo base e cereja do bolo.',
+    letter: "I",
+    title: "Identificar",
+    desc: "Você identifica preferências reais de modelagem, tecido, cor e estampa, além do estilo base e cereja do bolo.",
   },
   {
-    letter: 'E',
-    title: 'Expressar',
-    desc: 'Você aprende a usar cores, elementos de design e o método IHT: Intenção, Humor e Tempo.',
+    letter: "E",
+    title: "Expressar",
+    desc: "Você aprende a usar cores, elementos de design e o método IHT: Intenção, Humor e Tempo.",
   },
-]
+];
 
 const BONUSES = [
   {
-    num: '01',
-    title: 'Beleza Ágil',
-    desc: 'Curso completo de automaquiagem para compor sua imagem de forma prática e rápida.',
+    num: "01",
+    title: "Beleza Ágil",
+    desc: "Curso completo de automaquiagem para compor sua imagem de forma prática e rápida.",
     highlight: false,
   },
   {
-    num: '02',
-    title: 'Desafio 30D',
-    desc: '30 dias de aplicação guiada, checklist diário, suporte na comunidade e incentivo para documentar sua transformação.',
+    num: "02",
+    title: "Desafio 30D",
+    desc: "30 dias de aplicação guiada, checklist diário, suporte na comunidade e incentivo para documentar sua transformação.",
     highlight: false,
   },
   {
-    num: '03',
-    title: 'Grupo exclusivo no Telegram!',
-    desc: 'Para receber os avisos, links das aulas e não correr o risco de perder nenhuma novidade, se sentir acompanhada durante toda a jornada, sem se sentir sozinha nesse processo.',
+    num: "03",
+    title: "Grupo exclusivo no Telegram!",
+    desc: "Para receber os avisos, links das aulas e não correr o risco de perder nenhuma novidade, se sentir acompanhada durante toda a jornada, sem se sentir sozinha nesse processo.",
     highlight: false,
   },
   {
-    num: '04',
-    title: 'Mentoria Individual 1h comigo',
-    desc: 'Para as 10 primeiras inscritas, uma sessão ao vivo para revisar sua jornada, tirar dúvidas específicas do seu guarda-roupa e acelerar seus resultados.',
+    num: "04",
+    title: "Mentoria Individual 1h comigo",
+    desc: "Para as 10 primeiras inscritas, uma sessão ao vivo para revisar sua jornada, tirar dúvidas específicas do seu guarda-roupa e acelerar seus resultados.",
     highlight: true,
   },
-]
+];
 
 const BIO_PARAGRAPHS = [
-  'Sou consultora de imagem e criadora do Método C.I.E. E durante muito tempo, eu também achei que não tinha estilo. Eu me vestia, mas não me reconhecia. Copiava referências, seguia tendências e ainda assim sentia que algo não encaixava.',
-  'Tudo começou a mudar quando eu entendi que estilo não é sobre moda. É sobre clareza, identidade e intenção.',
-  'Na semana Elegância na Prática, eu vou te mostrar como aplicar isso na vida real, de forma leve, prática e possível.',
-  'Se hoje você sente que sua imagem não representa quem você é, essa aula é para você.',
-]
+  "Sou consultora de imagem e criadora do Método C.I.E. E durante muito tempo, eu também achei que não tinha estilo. Eu me vestia, mas não me reconhecia. Copiava referências, seguia tendências e ainda assim sentia que algo não encaixava.",
+  "Tudo começou a mudar quando eu entendi que estilo não é sobre moda. É sobre clareza, identidade e intenção.",
+  "Na semana Elegância na Prática, eu vou te mostrar como aplicar isso na vida real, de forma leve, prática e possível.",
+  "Se hoje você sente que sua imagem não representa quem você é, essa aula é para você.",
+];
 
 const FAQS = [
   {
-    q: 'Preciso comprar roupas novas para aplicar o método?',
-    a: 'Não. O método começa com o que você já tem. Compras, se vierem, serão intencionais e cirúrgicas, não impulsivas.',
+    q: "Preciso comprar roupas novas para aplicar o método?",
+    a: "Não. O método começa com o que você já tem. Compras, se vierem, serão intencionais e cirúrgicas, não impulsivas.",
   },
   {
-    q: 'Quanto tempo por dia preciso dedicar?',
-    a: 'Você consegue avançar com 20 a 30 minutos por dia. O Desafio 30D foi desenhado para caber na vida real.',
+    q: "Quanto tempo por dia preciso dedicar?",
+    a: "Você consegue avançar com 20 a 30 minutos por dia. O Desafio 30D foi desenhado para caber na vida real.",
   },
   {
-    q: 'Funciona para qualquer tipo de corpo e estilo de vida?',
-    a: 'Sim. O método parte do autoconhecimento e se adapta a você, não o contrário.',
+    q: "Funciona para qualquer tipo de corpo e estilo de vida?",
+    a: "Sim. O método parte do autoconhecimento e se adapta a você, não o contrário.",
   },
   {
-    q: 'Tenho acesso por quanto tempo?',
-    a: 'O acesso é por 1 ano, incluindo todas as atualizações futuras do método.',
+    q: "Tenho acesso por quanto tempo?",
+    a: "O acesso é por 1 ano, incluindo todas as atualizações futuras do método.",
   },
   {
-    q: 'A mentoria individual é realmente ao vivo comigo?',
-    a: 'Sim. É uma sessão de 1 hora, ao vivo, para revisar sua jornada e tirar dúvidas específicas.',
+    q: "A mentoria individual é realmente ao vivo comigo?",
+    a: "Sim. É uma sessão de 1 hora, ao vivo, para revisar sua jornada e tirar dúvidas específicas.",
   },
   {
-    q: 'Posso fazer o Método CIE mesmo sem entender de moda?',
-    a: 'Sim. O Método CIE foi criado justamente para mulheres que se sentem perdidas na hora de se vestir.',
+    q: "Posso fazer o Método CIE mesmo sem entender de moda?",
+    a: "Sim. O Método CIE foi criado justamente para mulheres que se sentem perdidas na hora de se vestir.",
   },
-]
+];
 
 export default async function MatriculasAbertasPage() {
-  const settings = await getSettings()
-  if (!settings.matriculas_ativo) redirect('/')
+  const settings = await getSettings();
+  if (!settings.matriculas_ativo) redirect("/");
 
-  const embedUrl = getEmbedUrl(settings.matriculas_video_url)
-  const ctaUrl = settings.matriculas_cta_url || '#'
+  const embedUrl = getEmbedUrl(settings.matriculas_video_url);
+  const ctaUrl = settings.matriculas_cta_url || "#";
 
   return (
     <>
       <EventHeader />
 
       <main>
-
         {/* ── Hero ───────────────────────────────────────────────────── */}
         <section className="gradient-bg py-6 lg:py-20 text-center overflow-hidden relative">
-          <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <div
+            className="absolute inset-0 pointer-events-none"
+            aria-hidden="true"
+          >
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/8 rounded-full blur-[120px]" />
             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-black/15 rounded-full blur-[100px]" />
           </div>
@@ -123,8 +125,8 @@ export default async function MatriculasAbertasPage() {
               Método C.I.E. — Letícia Demétrio
             </p>
             <h1 className="font-heading text-xl sm:text-3xl lg:text-5xl font-bold text-white leading-[1.15] mb-4 lg:mb-8">
-              Aprenda a se vestir de forma{' '}
-              <span className="italic text-white/80">elegante e prática</span>{' '}
+              Aprenda a se vestir de forma{" "}
+              <span className="italic text-white/80">elegante e prática</span>{" "}
               para qualquer ocasião em até 30 dias.
             </h1>
 
@@ -148,8 +150,10 @@ export default async function MatriculasAbertasPage() {
         <section className="bg-white py-16 lg:py-24 border-b border-neutral">
           <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
             <p className="font-heading text-2xl sm:text-3xl font-bold text-dark leading-snug mb-10">
-              Você não precisa comprar mais nada. Precisa de um método para finalmente usar o que já tem,{' '}
-              <span className="text-primary">com elegância, intenção</span> e sem perder tempo toda manhã.
+              Você não precisa comprar mais nada. Precisa de um método para
+              finalmente usar o que já tem,{" "}
+              <span className="text-primary">com elegância, intenção</span> e
+              sem perder tempo toda manhã.
             </p>
             <MatriculasCta variant="dark" ctaUrl={ctaUrl} />
           </div>
@@ -166,7 +170,11 @@ export default async function MatriculasAbertasPage() {
                 Entenda o Método CIE!
               </h2>
               <p className="text-white/60 font-body text-base leading-relaxed max-w-2xl mx-auto">
-                Antes de falar em peças, combinações ou cores, o método parte de uma pergunta que quase ninguém faz: quem é você esteticamente? Não quem você acha que deveria ser. Não o estilo da influenciadora que você acompanha. Você — com sua rotina, seu corpo, suas preferências reais e a vida que você de fato vive.
+                Antes de falar em peças, combinações ou cores, o método parte de
+                uma pergunta que quase ninguém faz: quem é você esteticamente?
+                Não quem você acha que deveria ser. Não o estilo da
+                influenciadora que você acompanha. Você — com sua rotina, seu
+                corpo, suas preferências reais e a vida que você de fato vive.
               </p>
             </div>
 
@@ -177,11 +185,17 @@ export default async function MatriculasAbertasPage() {
                   className="bg-white/5 border border-white/10 rounded-2xl p-7 flex flex-col gap-4 hover:bg-white/8 transition-colors"
                 >
                   <div className="gradient-bg w-12 h-12 rounded-xl flex items-center justify-center shrink-0">
-                    <span className="font-heading font-bold text-xl text-white">{item.letter}</span>
+                    <span className="font-heading font-bold text-xl text-white">
+                      {item.letter}
+                    </span>
                   </div>
                   <div>
-                    <h3 className="font-heading font-bold text-white text-lg mb-2">{item.title}</h3>
-                    <p className="text-white/55 font-body text-sm leading-relaxed">{item.desc}</p>
+                    <h3 className="font-heading font-bold text-white text-lg mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-white/55 font-body text-sm leading-relaxed">
+                      {item.desc}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -215,15 +229,19 @@ export default async function MatriculasAbertasPage() {
                   key={bonus.num}
                   className={`rounded-2xl p-7 ${
                     bonus.highlight
-                      ? 'bg-primary/5 border border-primary/25 border-l-4 border-l-primary'
-                      : 'bg-surface border border-neutral'
+                      ? "bg-primary/5 border border-primary/25 border-l-4 border-l-primary"
+                      : "bg-surface border border-neutral"
                   }`}
                 >
                   <p className="font-body text-xs font-bold text-primary tracking-[0.18em] uppercase mb-2">
                     Bônus {bonus.num}
                   </p>
-                  <h3 className="font-heading font-bold text-dark text-lg mb-2">{bonus.title}</h3>
-                  <p className="font-body text-subtle text-sm leading-relaxed">{bonus.desc}</p>
+                  <h3 className="font-heading font-bold text-dark text-lg mb-2">
+                    {bonus.title}
+                  </h3>
+                  <p className="font-body text-subtle text-sm leading-relaxed">
+                    {bonus.desc}
+                  </p>
                 </div>
               ))}
             </div>
@@ -232,7 +250,10 @@ export default async function MatriculasAbertasPage() {
 
         {/* ── Fechamento ─────────────────────────────────────────────── */}
         <section className="gradient-bg py-20 lg:py-28 text-center relative overflow-hidden">
-          <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <div
+            className="absolute inset-0 pointer-events-none"
+            aria-hidden="true"
+          >
             <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/8 rounded-full blur-[100px]" />
           </div>
           <div className="relative max-w-2xl mx-auto px-4 sm:px-6">
@@ -240,7 +261,7 @@ export default async function MatriculasAbertasPage() {
               Você não precisa de mais roupas.
             </p>
             <p className="font-heading text-3xl sm:text-4xl font-bold text-white/70 mb-12">
-              Você precisa saber o que fazer com elas.
+              Você precisa saber como usá-las.
             </p>
             <MatriculasCta variant="light" ctaUrl={ctaUrl} />
           </div>
@@ -262,17 +283,25 @@ export default async function MatriculasAbertasPage() {
               <div className="rounded-2xl border border-neutral bg-surface p-7">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="gradient-bg rounded-xl p-2.5 shrink-0">
-                    <Shield size={20} className="text-white" aria-hidden="true" />
+                    <Shield
+                      size={20}
+                      className="text-white"
+                      aria-hidden="true"
+                    />
                   </div>
                   <div>
                     <p className="text-xs text-primary font-semibold font-body uppercase tracking-wider">
                       Garantia incondicional
                     </p>
-                    <p className="font-heading font-bold text-dark text-base">15 dias</p>
+                    <p className="font-heading font-bold text-dark text-base">
+                      15 dias
+                    </p>
                   </div>
                 </div>
                 <p className="font-body text-subtle text-sm leading-relaxed">
-                  Acesse o método, assista às aulas e explore a comunidade. Se decidir que não é para você nos primeiros 15 dias, basta pedir o reembolso.
+                  Acesse o método, assista às aulas e explore a comunidade. Se
+                  decidir que não é para você nos primeiros 15 dias, basta pedir
+                  o reembolso.
                 </p>
               </div>
 
@@ -285,11 +314,15 @@ export default async function MatriculasAbertasPage() {
                     <p className="text-xs text-primary font-semibold font-body uppercase tracking-wider">
                       Garantia condicional
                     </p>
-                    <p className="font-heading font-bold text-dark text-base">90 dias</p>
+                    <p className="font-heading font-bold text-dark text-base">
+                      90 dias
+                    </p>
                   </div>
                 </div>
                 <p className="font-body text-subtle text-sm leading-relaxed">
-                  Se você completar os 30 dias, executar o Desafio 30D e ainda sentir que não conseguiu se vestir melhor, recebe mais 30 dias de suporte individual e mais 30 dias para aplicar as mudanças.
+                  Se você completar os 30 dias, executar o Desafio 30D e ainda
+                  sentir que não conseguiu se vestir melhor, recebe mais 30 dias
+                  de suporte individual e mais 30 dias para aplicar as mudanças.
                 </p>
               </div>
             </div>
@@ -320,7 +353,10 @@ export default async function MatriculasAbertasPage() {
                 </h2>
                 <div className="flex flex-col gap-4">
                   {BIO_PARAGRAPHS.map((p, i) => (
-                    <p key={i} className="text-white/65 font-body leading-relaxed text-sm sm:text-base">
+                    <p
+                      key={i}
+                      className="text-white/65 font-body leading-relaxed text-sm sm:text-base"
+                    >
                       {p}
                     </p>
                   ))}
@@ -366,7 +402,6 @@ export default async function MatriculasAbertasPage() {
             </div>
           </div>
         </section>
-
       </main>
 
       <WhatsAppFloat message={SUPORTE_MSG} />
@@ -374,7 +409,8 @@ export default async function MatriculasAbertasPage() {
       <footer className="bg-dark border-t border-white/8 py-6 px-4">
         <div className="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-white/30 font-body text-center sm:text-left">
-            © {new Date().getFullYear()} Letícia Demétrio · CNPJ: 58.679.269/0001-26
+            © {new Date().getFullYear()} Letícia Demétrio · CNPJ:
+            58.679.269/0001-26
           </p>
           <div className="flex items-center gap-4">
             <Link
@@ -395,5 +431,5 @@ export default async function MatriculasAbertasPage() {
         </div>
       </footer>
     </>
-  )
+  );
 }

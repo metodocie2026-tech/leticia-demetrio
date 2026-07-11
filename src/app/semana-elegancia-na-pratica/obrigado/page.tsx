@@ -42,8 +42,8 @@ export default async function ObrigadaPage() {
           <div className="bg-white rounded-2xl border border-primary/10 shadow-sm overflow-hidden">
             {/* Step label */}
             <div className="gradient-bg px-6 py-3 flex items-center gap-3">
-              <span className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-                <span className="font-heading font-bold text-white text-sm">1</span>
+              <span className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                <span className="font-body font-bold text-white text-xl leading-none">1</span>
               </span>
               <p className="font-heading font-bold text-white text-base leading-tight">
                 Clique no botão abaixo e participe do grupo de WhatsApp.
@@ -81,8 +81,8 @@ export default async function ObrigadaPage() {
           <div className="bg-white rounded-2xl border border-primary/10 shadow-sm overflow-hidden">
             {/* Step label */}
             <div className="gradient-bg px-6 py-3 flex items-center gap-3">
-              <span className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center shrink-0">
-                <span className="font-heading font-bold text-white text-sm">2</span>
+              <span className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                <span className="font-body font-bold text-white text-xl leading-none">2</span>
               </span>
               <p className="font-heading font-bold text-white text-base leading-tight">
                 Acesse seu e-mail e responda a pesquisa rápida (e resgate seu presente)
