@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
+// This page reads live Supabase data through a client whose requests Next
+// can't track for caching purposes — without this, the route gets statically
+// baked in at build time and never reflects new rows.
+export const dynamic = 'force-dynamic'
+
 function formatDate(iso: string) {
   return new Date(iso).toLocaleString('pt-BR', {
     day: '2-digit',
