@@ -293,7 +293,7 @@ export default async function SemanaPage() {
                     alt="Letícia Demétrio"
                     width={176}
                     height={176}
-                    className="object-cover w-full h-full"
+                    className="object-cover object-top w-full h-full"
                   />
                 </div>
               </div>

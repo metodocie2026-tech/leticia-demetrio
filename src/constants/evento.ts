@@ -141,7 +141,7 @@ export const EVENTO = {
       titulo: "Inscrição — Semana Elegância na Prática | Letícia Demétrio",
     },
     titulo: "Garanta sua vaga gratuita",
-    subtitulo: "Preencha os dados abaixo e pronto — você está dentro!",
+    subtitulo: "Preencha os dados abaixo e pronto você está dentro!",
     cta: "Confirmar minha inscrição",
     enviando: "Confirmando...",
     rodape:
