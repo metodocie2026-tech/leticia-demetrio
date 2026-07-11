@@ -13,9 +13,9 @@ export const EVENTO = {
 
   // ── Metadata ───────────────────────────────────────────────────────────────
   seo: {
-    titulo: "Semana Elegância na Prática — Gratuito | Letícia Demétrio",
+    titulo: "Aprenda a se vestir com elegância em 30 dias - Letícia Demétrio",
     descricao:
-      "3 aulas gratuitas para aprender a se vestir com elegância, segurança e intenção no dia a dia. Inscreva-se agora!",
+      "Aprenda a se vestir com elegância, segurança e intenção para qualquer ocasião em até 30 dias. Participe gratuitamente das 3 aulas da Semana Elegância na Prática, com Letícia Demétrio.",
   },
 
   // ── Presentation page ──────────────────────────────────────────────────────

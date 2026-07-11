@@ -3,8 +3,7 @@ export const SITE_METADATA = {
   title: 'Letícia Demétrio | Consultora de Imagem e Estilo Pessoal',
   description:
     'Consultora de imagem especializada em análise de coloração pessoal e estilo. Transforme sua imagem e expresse sua essência com autenticidade.',
-  // Replace with your real domain before going live
-  url: 'https://leticiademetrio.com.br',
+  url: 'https://cie.leticiademetrio.com.br',
   locale: 'pt_BR',
 }
 
