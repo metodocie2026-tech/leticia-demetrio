@@ -9,18 +9,18 @@ declare global {
 }
 
 /**
- * Re-pushes the same 'gtm.js' bootstrap event GTM's own snippet fires on a
- * real page load. Needed because this page is reached via client-side
- * `router.push()` after the inscription form submits, so the container
- * never reloads and tags bound to the built-in "All Pages" trigger
- * (e.g. the Pixel) never re-fire.
+ * Fires a custom dataLayer event when this page mounts. Needed because this
+ * page is reached via client-side `router.push()` after the inscription
+ * form submits, so the container never reloads and tags bound to GTM's
+ * built-in "Page View" trigger type (which only fires on the container's
+ * real, one-time boot) never re-fire. GTM's native Page View trigger can't
+ * be replayed from outside — a Custom Event trigger is required instead.
  */
 export function GtmPageviewReload() {
   useEffect(() => {
     window.dataLayer = window.dataLayer || []
     window.dataLayer.push({
-      'gtm.start': new Date().getTime(),
-      event: 'gtm.js',
+      event: 'obrigado_pageview',
     })
   }, [])
 
