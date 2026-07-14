@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { MessageCircle, Mail } from 'lucide-react'
 import { EventHeader } from '@/components/evento/EventHeader'
+import { GtmPageviewReload } from '@/components/evento/GtmPageviewReload'
 import { WhatsAppFloat } from '@/components/sections/WhatsAppFloat'
 import { EVENTO } from '@/constants/evento'
 import { getSettings } from '@/lib/settings'
@@ -18,6 +19,7 @@ export default async function ObrigadaPage() {
   const surveyUrl = settings.survey_url || '#'
   return (
     <>
+      <GtmPageviewReload />
       <EventHeader />
 
       <main className="min-h-[calc(100vh-65px)] bg-surface py-4 sm:py-12 px-4">
