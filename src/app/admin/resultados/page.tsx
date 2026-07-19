@@ -101,6 +101,7 @@ export default async function ResultadosPage() {
                       <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">E-mail</th>
                       <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">WhatsApp</th>
                       <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">Evento</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">Origem (UTM)</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-primary/6">
@@ -114,6 +115,18 @@ export default async function ResultadosPage() {
                           <span className="inline-block text-xs font-semibold text-primary bg-primary/10 px-2.5 py-1 rounded-full">
                             {row.evento}
                           </span>
+                        </td>
+                        <td className="px-5 py-3.5 text-subtle whitespace-nowrap">
+                          {row.utm_source ? (
+                            <span
+                              title={`source: ${row.utm_source || '—'} · medium: ${row.utm_medium || '—'} · campaign: ${row.utm_campaign || '—'} · content: ${row.utm_content || '—'} · term: ${row.utm_term || '—'}`}
+                              className="inline-block text-xs font-semibold text-secondary bg-secondary/10 px-2.5 py-1 rounded-full cursor-help"
+                            >
+                              {row.utm_source}
+                            </span>
+                          ) : (
+                            <span className="text-xs text-muted">—</span>
+                          )}
                         </td>
                       </tr>
                     ))}

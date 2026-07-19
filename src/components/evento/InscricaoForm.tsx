@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
 import { PhoneInput, getCountryCode } from '@/components/ui/PhoneInput'
 import { EVENTO, type InscricaoData } from '@/constants/evento'
+import { getUtmParams } from '@/utils/utm'
 
 const INITIAL: InscricaoData = { nome: '', email: '', whatsapp: '' }
 
@@ -45,6 +46,7 @@ export function InscricaoForm() {
         body: JSON.stringify({
           ...data,
           whatsapp: `+${getCountryCode(countryId)}${data.whatsapp.replace(/\D/g, '')}`,
+          ...getUtmParams(),
         }),
       })
       if (!res.ok) throw new Error()
