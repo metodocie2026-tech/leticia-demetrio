@@ -18,13 +18,26 @@ CREATE TABLE IF NOT EXISTS contacts (
 
 -- ── 2. Inscrições no evento ────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS inscricoes (
-  id         BIGSERIAL PRIMARY KEY,
-  nome       TEXT NOT NULL,
-  email      TEXT NOT NULL,
-  whatsapp   TEXT NOT NULL,
-  evento     TEXT NOT NULL DEFAULT '',
-  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  id           BIGSERIAL PRIMARY KEY,
+  nome         TEXT NOT NULL,
+  email        TEXT NOT NULL,
+  whatsapp     TEXT NOT NULL,
+  evento       TEXT NOT NULL DEFAULT '',
+  utm_source   TEXT NOT NULL DEFAULT '',
+  utm_medium   TEXT NOT NULL DEFAULT '',
+  utm_campaign TEXT NOT NULL DEFAULT '',
+  utm_content  TEXT NOT NULL DEFAULT '',
+  utm_term     TEXT NOT NULL DEFAULT '',
+  created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- Adiciona as colunas de UTM caso a tabela já existisse sem elas
+ALTER TABLE inscricoes
+  ADD COLUMN IF NOT EXISTS utm_source   TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS utm_medium   TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS utm_campaign TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS utm_content  TEXT NOT NULL DEFAULT '',
+  ADD COLUMN IF NOT EXISTS utm_term     TEXT NOT NULL DEFAULT '';
 
 -- ── 3. Aulas da semana ─────────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS aulas (
