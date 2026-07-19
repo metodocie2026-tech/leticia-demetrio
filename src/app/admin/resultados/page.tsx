@@ -92,16 +92,16 @@ export default async function ResultadosPage() {
             <EmptyState text="Nenhuma inscrição ainda." />
           ) : (
             <div className="bg-white rounded-2xl shadow-sm border border-primary/10 overflow-hidden">
-              <div className="overflow-x-auto">
+              <div className="overflow-auto max-h-[1024px]">
                 <table className="w-full text-sm font-body">
                   <thead>
                     <tr className="border-b border-primary/10 bg-surface">
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">Data</th>
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">Nome</th>
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">E-mail</th>
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">WhatsApp</th>
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">Evento</th>
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">Origem (UTM)</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">Data</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">Nome</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">E-mail</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">WhatsApp</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">Evento</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">Origem (UTM)</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-primary/6">
@@ -147,14 +147,14 @@ export default async function ResultadosPage() {
             <EmptyState text="Nenhum lead de matrícula ainda." />
           ) : (
             <div className="bg-white rounded-2xl shadow-sm border border-primary/10 overflow-hidden">
-              <div className="overflow-x-auto">
+              <div className="overflow-auto max-h-[1024px]">
                 <table className="w-full text-sm font-body">
                   <thead>
                     <tr className="border-b border-primary/10 bg-surface">
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">Data</th>
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">Nome</th>
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">E-mail</th>
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">WhatsApp</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">Data</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">Nome</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">E-mail</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">WhatsApp</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-primary/6">
@@ -183,14 +183,14 @@ export default async function ResultadosPage() {
             <EmptyState text="Nenhuma entrada na lista de espera ainda." />
           ) : (
             <div className="bg-white rounded-2xl shadow-sm border border-primary/10 overflow-hidden">
-              <div className="overflow-x-auto">
+              <div className="overflow-auto max-h-[1024px]">
                 <table className="w-full text-sm font-body">
                   <thead>
                     <tr className="border-b border-primary/10 bg-surface">
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">Data</th>
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">Nome</th>
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">E-mail</th>
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">WhatsApp</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">Data</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">Nome</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">E-mail</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">WhatsApp</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-primary/6">
@@ -219,15 +219,15 @@ export default async function ResultadosPage() {
             <EmptyState text="Nenhum contato ainda." />
           ) : (
             <div className="bg-white rounded-2xl shadow-sm border border-primary/10 overflow-hidden">
-              <div className="overflow-x-auto">
+              <div className="overflow-auto max-h-[1024px]">
                 <table className="w-full text-sm font-body">
                   <thead>
                     <tr className="border-b border-primary/10 bg-surface">
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">Data</th>
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">Nome</th>
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">E-mail</th>
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">Telefone</th>
-                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest">Mensagem</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">Data</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">Nome</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">E-mail</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">Telefone</th>
+                      <th className="text-left px-5 py-3.5 text-muted font-semibold text-xs uppercase tracking-widest sticky top-0 z-10 bg-surface">Mensagem</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-primary/6">
