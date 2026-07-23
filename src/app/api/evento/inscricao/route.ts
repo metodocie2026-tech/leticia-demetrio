@@ -3,6 +3,7 @@ import type { InscricaoData } from '@/constants/evento'
 import { supabase } from '@/lib/supabase'
 import { getSettings } from '@/lib/settings'
 import { addContactToBrevo } from '@/lib/brevo'
+import { addSubscriberToListmonk } from '@/lib/listmonk'
 
 export async function POST(req: NextRequest) {
   try {
@@ -21,11 +22,10 @@ export async function POST(req: NextRequest) {
 
     if (error) throw error
 
-    // Brevo: add contact to list so the automation triggers.
-    // Awaited so it runs before the response, but errors are silently swallowed
-    // — a Brevo outage must never break the form submission.
+    const settings = await getSettings()
+
+    // Brevo segue sendo o dono da automação (e-mail imediato + 24h) — inalterado.
     try {
-      const settings = await getSettings()
       await addContactToBrevo({
         nome: body.nome,
         email: body.email,
@@ -35,6 +35,23 @@ export async function POST(req: NextRequest) {
       })
     } catch (err) {
       console.error('[Brevo] Failed to add contact:', err)
+    }
+
+    // Listmonk: só sincroniza o contato (sem disparar e-mail daqui), pra manter
+    // a lista pronta pras campanhas de data fixa (docs/migracao-brevo-ses.md §3).
+    try {
+      await addSubscriberToListmonk({
+        nome: body.nome,
+        email: body.email,
+        whatsapp: body.whatsapp,
+        listId: Number(process.env.LISTMONK_LIST_ID ?? '0'),
+        attribs: {
+          whatsapp_group_url: settings.whatsapp_group_url,
+          survey_url: settings.survey_url,
+        },
+      })
+    } catch (err) {
+      console.error('[Listmonk] Failed to sync contact:', err)
     }
 
     return NextResponse.json({ success: true }, { status: 200 })
