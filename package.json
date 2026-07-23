@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "listmonk:local": "docker compose -f docker-compose.listmonk.yml up -d",
+    "listmonk:local:down": "docker compose -f docker-compose.listmonk.yml down"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.107.0",
