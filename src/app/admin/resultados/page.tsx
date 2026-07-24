@@ -33,10 +33,10 @@ function EmptyState({ text }: { text: string }) {
 
 export default async function ResultadosPage() {
   const [{ data: inscricoes }, { data: contacts }, { data: listaEspera }, { data: matriculasLeads }] = await Promise.all([
-    supabase.from('inscricoes').select('*').order('created_at', { ascending: false }).limit(500),
-    supabase.from('contacts').select('*').order('created_at', { ascending: false }).limit(500),
-    supabase.from('lista_espera').select('*').order('created_at', { ascending: false }).limit(500),
-    supabase.from('matriculas_leads').select('*').order('created_at', { ascending: false }).limit(500),
+    supabase.from('inscricoes').select('*').order('created_at', { ascending: false }).limit(2000),
+    supabase.from('contacts').select('*').order('created_at', { ascending: false }).limit(2000),
+    supabase.from('lista_espera').select('*').order('created_at', { ascending: false }).limit(2000),
+    supabase.from('matriculas_leads').select('*').order('created_at', { ascending: false }).limit(2000),
   ])
 
   const totalInscricoes = inscricoes?.length ?? 0
