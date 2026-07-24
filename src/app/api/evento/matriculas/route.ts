@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 import { addMatriculasContactToBrevo } from '@/lib/brevo'
+import { addSubscriberToListmonk } from '@/lib/listmonk'
 
 export async function POST(req: NextRequest) {
   try {
@@ -18,6 +19,8 @@ export async function POST(req: NextRequest) {
 
     if (error) throw error
 
+    // Não há automação de e-mail pra matriculas_leads hoje, nem no Brevo nem no
+    // Listmonk — os dois só sincronizam o contato.
     try {
       await addMatriculasContactToBrevo({
         nome: body.nome,
@@ -26,6 +29,17 @@ export async function POST(req: NextRequest) {
       })
     } catch (err) {
       console.error('[Brevo] Failed to add matriculas contact:', err)
+    }
+
+    try {
+      await addSubscriberToListmonk({
+        nome: body.nome,
+        email: body.email,
+        whatsapp: body.whatsapp,
+        listId: Number(process.env.LISTMONK_MATRICULAS_LIST_ID ?? '0'),
+      })
+    } catch (err) {
+      console.error('[Listmonk] Failed to sync matriculas contact:', err)
     }
 
     return NextResponse.json({ success: true }, { status: 200 })
