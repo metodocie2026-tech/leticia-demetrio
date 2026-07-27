@@ -2,8 +2,9 @@
 
 import { useState, useRef } from 'react'
 import YouTube, { type YouTubeEvent } from 'react-youtube'
-import { Play, Lock, Clock } from 'lucide-react'
+import { Play, Lock, Clock, MessageCircle } from 'lucide-react'
 import { cn } from '@/utils/cn'
+import { linkify } from '@/utils/linkify'
 import type { AulaVideo } from '@/constants/aulas'
 
 type YTPlayerRef = {
@@ -106,9 +107,21 @@ export function AulasView({ videos, initialDay = 1 }: { videos: AulaVideo[]; ini
           </h2>
 
           {selected?.descricao && (
-            <p className="text-white/50 font-body text-sm leading-relaxed mt-2">
-              {selected.descricao}
+            <p className="text-white/50 font-body text-sm leading-relaxed mt-2 whitespace-pre-line">
+              {linkify(selected.descricao)}
             </p>
+          )}
+
+          {selected?.youtubeId && (
+            <a
+              href={`https://www.youtube.com/watch?v=${selected.youtubeId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mt-4 text-xs font-body font-semibold text-primary bg-primary/10 border border-primary/20 px-4 py-2 rounded-full hover:bg-primary/20 transition-colors"
+            >
+              <MessageCircle size={14} aria-hidden="true" />
+              Deixe seu comentário no YouTube
+            </a>
           )}
         </div>
       </section>

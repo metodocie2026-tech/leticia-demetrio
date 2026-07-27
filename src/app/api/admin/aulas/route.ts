@@ -30,7 +30,8 @@ export async function PATCH(req: NextRequest) {
 
     revalidateTag('aulas', 'max')
     return NextResponse.json({ success: true })
-  } catch {
+  } catch (error) {
+    console.error('PATCH /api/admin/aulas failed:', error)
     return NextResponse.json({ error: 'Erro ao salvar aula.' }, { status: 500 })
   }
 }
@@ -63,7 +64,8 @@ export async function POST(req: NextRequest) {
 
     revalidateTag('aulas', 'max')
     return NextResponse.json({ id: (data as { id: number }).id })
-  } catch {
+  } catch (error) {
+    console.error('POST /api/admin/aulas failed:', error)
     return NextResponse.json({ error: 'Erro ao criar aula.' }, { status: 500 })
   }
 }
@@ -79,7 +81,8 @@ export async function DELETE(req: NextRequest) {
 
     revalidateTag('aulas', 'max')
     return NextResponse.json({ success: true })
-  } catch {
+  } catch (error) {
+    console.error('DELETE /api/admin/aulas failed:', error)
     return NextResponse.json({ error: 'Erro ao excluir aula.' }, { status: 500 })
   }
 }

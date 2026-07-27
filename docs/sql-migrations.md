@@ -46,8 +46,13 @@ CREATE TABLE IF NOT EXISTS aulas (
   titulo     TEXT NOT NULL DEFAULT '',
   youtube_id TEXT NOT NULL DEFAULT '',
   duracao    TEXT NOT NULL DEFAULT '',
-  descricao  TEXT NOT NULL DEFAULT ''
+  descricao  TEXT NOT NULL DEFAULT '',
+  release_at TIMESTAMPTZ
 );
+
+-- Adiciona a coluna de agendamento caso a tabela já existisse sem ela
+ALTER TABLE aulas
+  ADD COLUMN IF NOT EXISTS release_at TIMESTAMPTZ;
 
 INSERT INTO aulas (id, dia, titulo, youtube_id, duracao, descricao) VALUES
   (1, 'Dia 1', 'Por que você ainda não consegue se vestir bem todos os dias!', '_wc9AdSWkfs', '36min', 'Entenda o que o seu jeito de se vestir comunica sobre você e como alinhar sua aparência com quem você realmente é.'),

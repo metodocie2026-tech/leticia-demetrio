@@ -169,9 +169,9 @@ function AulaCard({ video, onSaved, onDelete }: CardProps) {
           <textarea
             value={descricao}
             onChange={(e) => setDescricao(e.target.value)}
-            placeholder="Descrição curta da aula"
-            rows={2}
-            className="w-full border border-primary/15 rounded-xl px-3 py-2 text-sm font-body text-dark focus:outline-none focus:ring-2 focus:ring-primary/30 bg-surface resize-none"
+            placeholder="Descrição da aula. Links (https://...) viram clicáveis automaticamente."
+            rows={4}
+            className="w-full border border-primary/15 rounded-xl px-3 py-2 text-sm font-body text-dark focus:outline-none focus:ring-2 focus:ring-primary/30 bg-surface resize-y"
           />
         </div>
 

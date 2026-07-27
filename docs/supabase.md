@@ -43,6 +43,7 @@ Os vídeos de cada dia são gerenciados na tabela **`aulas`** — editável dire
 | `youtube_id` | ID do vídeo no YouTube (vazio = "Em breve") |
 | `duracao` | Duração exibida ("36min", etc.) |
 | `descricao` | Texto de descrição da aula |
+| `release_at` | Data/hora em que a aula fica disponível (vazio = já disponível) |
 
 **SQL para criar a tabela** (rodar no Supabase → SQL Editor):
 
@@ -53,7 +54,8 @@ create table aulas (
   titulo text not null default '',
   youtube_id text not null default '',
   duracao text not null default '',
-  descricao text not null default ''
+  descricao text not null default '',
+  release_at timestamptz
 );
 
 insert into aulas (id, dia, titulo, youtube_id, duracao, descricao) values
