@@ -24,37 +24,37 @@ const CIE_PILLARS = [
   {
     letter: "C",
     title: "Conhecer",
-    desc: "Você distingue imagem percebida de imagem pretendida e entende o que realmente quer comunicar.",
+    desc: "Entenda quem você é e a imagem que deseja transmitir.",
   },
   {
     letter: "I",
     title: "Identificar",
-    desc: "Você identifica preferências reais de modelagem, tecido, cor e estampa, além do estilo base e cereja do bolo.",
+    desc: "Descubra o que realmente combina com você e com a sua rotina.",
   },
   {
     letter: "E",
     title: "Expressar",
-    desc: "Você aprende a usar cores, elementos de design e o método IHT: Intenção, Humor e Tempo.",
+    desc: "Transforme esse conhecimento em looks elegantes, práticos e intencionais.",
   },
 ];
 
 const BONUSES = [
   {
     num: "01",
+    title: "LetícIA",
+    desc: "Sua consultora de imagem virtual, disponível 24h por dia, 7 dias por semana, com base no Método CIE.",
+    highlight: false,
+  },
+  {
+    num: "02",
     title: "Beleza Ágil",
     desc: "Curso completo de automaquiagem para compor sua imagem de forma prática e rápida.",
     highlight: false,
   },
   {
-    num: "02",
+    num: "03",
     title: "Desafio 30D",
     desc: "30 dias de aplicação guiada, checklist diário, suporte na comunidade e incentivo para documentar sua transformação.",
-    highlight: false,
-  },
-  {
-    num: "03",
-    title: "Grupo exclusivo no Telegram!",
-    desc: "Para receber os avisos, links das aulas e não correr o risco de perder nenhuma novidade, se sentir acompanhada durante toda a jornada, sem se sentir sozinha nesse processo.",
     highlight: false,
   },
   {
@@ -91,7 +91,11 @@ const FAQS = [
   },
   {
     q: "A mentoria individual é realmente ao vivo comigo?",
-    a: "Sim. É uma sessão de 1 hora, ao vivo, para revisar sua jornada e tirar dúvidas específicas.",
+    a: "Sim. É uma sessão de 1 hora, ao vivo, para revisar sua jornada e tirar dúvidas específicas, válida para as 10 primeiras inscritas.",
+  },
+  {
+    q: "Como funciona a LetícIA?",
+    a: "A LetícIA funciona como uma consultora de estilo online dentro do ChatGPT. O acesso pode ser feito pelo plano gratuito ou pago, conforme os limites de uso de cada usuário.",
   },
   {
     q: "Posso fazer o Método CIE mesmo sem entender de moda?",
@@ -122,11 +126,11 @@ export default async function MatriculasAbertasPage() {
           </div>
           <div className="relative max-w-3xl mx-auto px-4 sm:px-6">
             <p className="text-xs font-semibold tracking-[0.22em] uppercase font-body text-white/60 mb-3 lg:mb-5">
-              Método C.I.E. — Letícia Demétrio
+              Método C.I.E. · Letícia Demétrio
             </p>
             <h1 className="font-heading text-xl sm:text-3xl lg:text-5xl font-bold text-white leading-[1.15] mb-4 lg:mb-8">
               Aprenda a se vestir de forma{" "}
-              <span className="italic text-white/80">elegante e prática</span>{" "}
+              <span className="text-[#f0c987]">elegante e prática</span>{" "}
               para qualquer ocasião em até 30 dias.
             </h1>
 
@@ -137,12 +141,12 @@ export default async function MatriculasAbertasPage() {
                   className="absolute inset-0 w-full h-full"
                   allow="autoplay; fullscreen; picture-in-picture"
                   allowFullScreen
-                  title="Vídeo de abertura — Método CIE"
+                  title="Vídeo de abertura do Método CIE"
                 />
               </div>
             )}
 
-            <MatriculasCta variant="light" ctaUrl={ctaUrl} />
+            <MatriculasCta variant="hero" ctaUrl={ctaUrl} />
           </div>
         </section>
 
@@ -150,12 +154,19 @@ export default async function MatriculasAbertasPage() {
         <section className="bg-white py-16 lg:py-24 border-b border-neutral">
           <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
             <p className="font-heading text-2xl sm:text-3xl font-bold text-dark leading-snug mb-10">
-              Você não precisa comprar mais nada. Precisa de um método para
-              finalmente usar o que já tem,{" "}
-              <span className="text-primary">com elegância, intenção</span> e
-              sem perder tempo toda manhã.
+              Você não precisa de mais roupas. Precisa de um método para
+              transformar o que já tem em looks elegantes, práticos e com a
+              sua identidade.
             </p>
             <MatriculasCta variant="dark" ctaUrl={ctaUrl} />
+            <p className="font-body text-subtle text-sm sm:text-base leading-relaxed mt-10">
+              Antes de descobrir o que vestir, você precisa entender quem é.
+            </p>
+            <p className="font-body text-subtle text-sm sm:text-base leading-relaxed mt-3">
+              O Método CIE começa em você: na sua rotina, no seu corpo, nas
+              suas preferências e na imagem que deseja comunicar, não no
+              estilo de outra mulher.
+            </p>
           </div>
         </section>
 
@@ -173,10 +184,14 @@ export default async function MatriculasAbertasPage() {
                 Antes de falar em peças, combinações ou cores, o método parte de
                 uma pergunta que quase ninguém faz: quem é você esteticamente?
                 Não quem você acha que deveria ser. Não o estilo da
-                influenciadora que você acompanha. Você — com sua rotina, seu
+                influenciadora que você acompanha. Você, com sua rotina, seu
                 corpo, suas preferências reais e a vida que você de fato vive.
               </p>
             </div>
+
+            <p className="font-heading text-lg sm:text-xl font-bold text-white text-center mb-8">
+              E essa, na minha opinião, é a versão mais forte (mais premium):
+            </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-12">
               {CIE_PILLARS.map((item) => (
@@ -334,13 +349,13 @@ export default async function MatriculasAbertasPage() {
           <div className="max-w-3xl mx-auto px-4 sm:px-6">
             <div className="flex flex-col sm:flex-row gap-10 items-center sm:items-start">
               <div className="shrink-0">
-                <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden ring-4 ring-primary/30 shadow-xl">
+                <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden ring-4 ring-primary/30 shadow-xl">
                   <Image
-                    src="/images/leticia.png"
+                    src="/images/leticia-profile-matriculas.jpeg"
                     alt="Letícia Demétrio"
-                    width={176}
-                    height={176}
-                    className="object-cover object-top w-full h-full"
+                    width={224}
+                    height={224}
+                    className="object-cover object-center w-full h-full"
                   />
                 </div>
               </div>
