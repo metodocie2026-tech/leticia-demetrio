@@ -8,7 +8,7 @@ import { PhoneInput, getCountryCode } from '@/components/ui/PhoneInput'
 import { cn } from '@/utils/cn'
 
 interface Props {
-  variant: 'light' | 'dark'
+  variant: 'light' | 'dark' | 'hero'
   ctaUrl: string
 }
 
@@ -84,17 +84,28 @@ export function MatriculasCta({ variant, ctaUrl }: Props) {
   return (
     <>
       {/* ── CTA trigger button ───────────────────────────────────── */}
-      <button
-        onClick={openModal}
-        className={cn(
-          'inline-flex items-center justify-center text-center font-body font-bold rounded-full text-sm sm:text-base px-8 sm:px-10 py-4 transition-all duration-200 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-          variant === 'light'
-            ? 'bg-white text-primary hover:bg-primary-light focus-visible:ring-white'
-            : 'gradient-bg text-white hover:brightness-110 focus-visible:ring-primary',
+      <div className={cn('relative inline-block', variant === 'hero' && 'py-1.5')}>
+        {variant === 'hero' && (
+          <span
+            className="absolute -inset-2 rounded-full bg-[#f0c987] opacity-60 blur-xl animate-pulse pointer-events-none"
+            aria-hidden="true"
+          />
         )}
-      >
-        QUERO GARANTIR MINHA VAGA AGORA!
-      </button>
+        <button
+          onClick={openModal}
+          className={cn(
+            'relative inline-flex items-center justify-center text-center font-body font-bold rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
+            variant === 'dark' &&
+              'text-sm sm:text-base px-8 sm:px-10 py-4 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 gradient-bg text-white hover:brightness-110 focus-visible:ring-primary',
+            variant === 'light' &&
+              'text-sm sm:text-base px-8 sm:px-10 py-4 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 bg-white text-primary hover:bg-primary-light focus-visible:ring-white',
+            variant === 'hero' &&
+              'text-base sm:text-lg px-10 sm:px-14 py-4 sm:py-5 shadow-2xl hover:shadow-[0_0_40px_rgba(240,201,135,0.6)] hover:-translate-y-1 hover:scale-105 bg-white text-primary ring-4 ring-[#f0c987] focus-visible:ring-white',
+          )}
+        >
+          QUERO GARANTIR MINHA VAGA AGORA!
+        </button>
+      </div>
 
       {/* ── Modal overlay ────────────────────────────────────────── */}
       {open && (
