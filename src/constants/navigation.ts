@@ -1,11 +1,14 @@
 import type { NavLink } from '@/types'
 
+// Prefixed with "/" (not bare "#...") so these still work as full navigation
+// back to the homepage from other routes (ex: /servicos/[slug]) — a same-path
+// "/#servicos" resolves to a plain in-page scroll when already on "/".
 export const NAV_LINKS: NavLink[] = [
-  { label: 'Sobre', href: '#sobre' },
-  { label: 'Serviços', href: '#servicos' },
-  { label: 'Métodos', href: '#metodos' },
-  { label: 'Depoimentos', href: '#depoimentos' },
-  { label: 'Contato', href: '#contato' },
+  { label: 'Sobre', href: '/#sobre' },
+  { label: 'Serviços', href: '/#servicos' },
+  { label: 'Métodos', href: '/#metodos' },
+  { label: 'Depoimentos', href: '/#depoimentos' },
+  { label: 'Contato', href: '/#contato' },
 ]
 
 export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '5511999999999'

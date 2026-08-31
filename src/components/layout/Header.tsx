@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { buildWhatsAppUrl } from '@/utils/whatsapp'
@@ -41,7 +42,7 @@ export function Header() {
         aria-label="Navegação principal"
       >
         {/* Logo */}
-        <a href="#inicio" aria-label="Letícia Demétrio – Início" className="relative shrink-0">
+        <Link href="/#inicio" aria-label="Letícia Demétrio – Início" className="relative shrink-0">
           <Image
             src="/images/logo/white_logo.png"
             alt="Letícia Demétrio"
@@ -58,12 +59,12 @@ export function Header() {
             priority
             className={cn('absolute inset-0 transition-opacity duration-300', scrolled ? 'opacity-100' : 'opacity-0')}
           />
-        </a>
+        </Link>
 
         {/* Desktop navigation */}
         <ul className="hidden md:flex items-center gap-1" role="list">
           {NAV_LINKS.map((link) => {
-            const sectionId = link.href.replace('#', '')
+            const sectionId = link.href.split('#')[1] ?? ''
             const isActive = activeId === sectionId
             return (
               <li key={link.href}>

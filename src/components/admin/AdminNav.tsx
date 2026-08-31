@@ -2,12 +2,13 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { SlidersHorizontal, FileText, Video } from 'lucide-react'
+import { SlidersHorizontal, FileText, Video, Package } from 'lucide-react'
 
 const links = [
   { href: '/admin', label: 'Config', icon: SlidersHorizontal },
   { href: '/admin/resultados', label: 'Resultados', icon: FileText },
   { href: '/admin/aulas', label: 'Aulas', icon: Video },
+  { href: '/admin/ofertas', label: 'Ofertas', icon: Package },
 ]
 
 export function AdminNav() {
