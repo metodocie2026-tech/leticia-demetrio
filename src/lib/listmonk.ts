@@ -110,6 +110,36 @@ export async function addSubscriberToListmonk({
   }
 }
 
+// ── Transacional (Categoria A — e-mail 1 imediato / e-mail 2 +24h) ─────────
+
+// O subscriber precisa já existir no Listmonk antes deste envio (confirmado:
+// /api/tx falha com "subscriber not found" se chamado antes do sync) — sempre
+// chamar depois de addSubscriberToListmonk(). Merge tags como
+// {{ .Subscriber.Name }} e {{ .Subscriber.Attribs.whatsapp_group_url }} vêm
+// dos atributos já salvos no subscriber, não precisam ser repetidos aqui.
+export async function sendListmonkTransactional({
+  email,
+  templateId,
+}: {
+  email: string
+  templateId: number
+}) {
+  if (!templateId) return
+
+  const res = await listmonkFetch('/tx', {
+    method: 'POST',
+    body: JSON.stringify({
+      subscriber_email: email,
+      template_id: templateId,
+      content_type: 'html',
+    }),
+  })
+  if (!res.ok) {
+    const text = await res.text().catch(() => '')
+    throw new Error(`Listmonk POST /tx ${res.status}: ${text}`)
+  }
+}
+
 // ── Cancelamento de inscrição ───────────────────────────────────────────────
 
 // Usado por src/app/cancelar-inscricao/page.tsx. Idempotente de propósito —

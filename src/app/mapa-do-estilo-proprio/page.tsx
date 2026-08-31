@@ -285,11 +285,11 @@ export default async function SemanaPage() {
               <div className="shrink-0">
                 <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden ring-4 ring-primary/30 shadow-xl">
                   <Image
-                    src="/images/leticia.png"
+                    src="/images/leticia_new_profile.png"
                     alt="Letícia Demétrio"
                     width={176}
                     height={176}
-                    className="object-cover object-top w-full h-full"
+                    className="object-cover object-center w-full h-full"
                   />
                 </div>
               </div>

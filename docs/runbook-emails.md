@@ -2,7 +2,7 @@
 
 Guia rápido do dia a dia. Pra configuração inicial, ver os tutoriais em `docs/tutorial-amazon-ses.md` e `docs/tutorial-listmonk.md`.
 
-**Escopo atual (desde 22/07/2026)**: só a Categoria B (campanhas de data fixa) está ativa via Listmonk. O e-mail imediato + o de 24h após inscrição (Categoria A) continuam 100% no Brevo, sem previsão de mudar — ver `docs/migracao-brevo-ses.md` §0.1. As API routes só sincronizam o contato no Listmonk silenciosamente (sem disparar nada), pra manter a lista pronta pras campanhas abaixo.
+**Escopo atual (desde 31/08/2026)**: Categoria A e Categoria B ativas via Listmonk/SES — o Brevo foi removido do projeto. O e-mail imediato (Categoria A, passo 1) dispara direto na rota de inscrição; o de +24h (passo 2) é varrido pelo cron de hora em hora. Ver `docs/migracao-brevo-ses.md` §0.2.
 
 ---
 
@@ -21,11 +21,23 @@ Se algum dia a Letícia quiser um layout visualmente diferente (não só texto n
 
 ---
 
-## Como adicionar um novo e-mail por gatilho (relativo ao momento em que o lead entrou) — **pausado**
+## Como adicionar um novo e-mail por gatilho (relativo ao momento em que o lead entrou)
 
-Isso é a Categoria A (algo como "e-mail X horas depois de Y") — hoje **não implementada de propósito** (`docs/migracao-brevo-ses.md` §0.1). O e-mail imediato + o de 24h continuam no Brevo, sem plano de mudar.
+Isso é a Categoria A (algo como "e-mail X horas depois de Y") — ativa desde 31/08/2026, config em `src/lib/email-sequences.ts`:
 
-Se um dia isso for retomado, o desenho completo (config `EMAIL_SEQUENCES`, rota de cron, colunas `*_sent_at`) está preservado em `docs/migracao-brevo-ses.md` §3.2 — já foi construído e testado uma vez, só foi removido do repositório por decisão de escopo, não porque não funcionava.
+```ts
+export const EMAIL_SEQUENCES: SequenceStep[] = [
+  { table: 'inscricoes', delayHours: 0,  listmonkTemplateId: ..., sentColumn: 'email_1_sent_at' },
+  { table: 'inscricoes', delayHours: 24, listmonkTemplateId: ..., sentColumn: 'email_2_sent_at' },
+]
+```
+
+1. Criar o template transacional no Listmonk (**Campaigns → Templates → New**, tipo `Tx`), anotar o ID.
+2. Adicionar uma coluna nova de controle na tabela de origem (ex.: `email_3_sent_at`) — ver o padrão em `docs/sql-migrations.md`.
+3. Adicionar um novo item em `EMAIL_SEQUENCES` com o `delayHours`, `listmonkTemplateId` (via env var) e `sentColumn` corretos.
+4. Se `delayHours: 0`, o disparo já acontece automaticamente na API route correspondente (mesmo padrão do e-mail 1). Se `delayHours > 0`, o cron em `src/app/api/cron/email-sequences/route.ts` já varre todos os passos da lista — não precisa tocar na rota do cron.
+
+O cron só processa leads do evento atual (`evento = EVENTO_TAG`, de `src/constants/evento.ts`) — leads de um evento anterior nunca são pegos, mesmo que a coluna de controle esteja `NULL` neles.
 
 ---
 
@@ -39,7 +51,7 @@ Se um dia isso for retomado, o desenho completo (config `EMAIL_SEQUENCES`, rota 
 
 ## Onde olhar quando algo não dispara
 
-1. **Logs da aplicação** (EasyPanel → app → Logs) — os erros de sync são logados com prefixo `[Listmonk]` (e os do Brevo com `[Brevo]`, inalterado).
+1. **Logs da aplicação** (EasyPanel → app → Logs) — os erros de sync/envio são logados com prefixo `[Listmonk]`, os do cron com `[cron/email-sequences]`.
 2. **Histórico de campanha no painel do Listmonk** — mostra o que foi enviado, entregue, e com bounce.
 3. **SES** (console AWS) → **Reputation dashboard** — taxa de bounce/complaint, e se a conta ainda está em boa saúde.
 4. Se um contato não aparece no Listmonk: confirmar que as env vars `LISTMONK_API_URL`/`LISTMONK_API_USERNAME`/`LISTMONK_API_KEY`/`LISTMONK_LIST_ID` estão configuradas no ambiente — sem elas, o sync falha silenciosamente (por design, pra nunca travar o formulário) e só aparece nos logs.
