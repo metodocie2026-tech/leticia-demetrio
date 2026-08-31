@@ -2,7 +2,7 @@
 
 Depois que o Listmonk estiver no ar em produção (via EasyPanel, `docs/tutorial-listmonk.md`), como validar que tudo funciona de verdade antes de agendar uma campanha real pra todos os leads.
 
-> **Escopo (desde 22/07/2026)**: só a sincronia de contato (dual-write) e as campanhas de data fixa estão ativas — não existe mais uma flag `EMAIL_PROVIDER` nem cutover único (Categoria A pausada, ver `docs/migracao-brevo-ses.md` §0.1). O Brevo roda a automação de sempre, permanentemente, em paralelo — este doc só valida se o Listmonk/SES de produção estão prontos pra receber uma campanha agendada.
+> **Escopo (desde 31/08/2026)**: Categoria A (e-mail 1 imediato + e-mail 2 +24h) e Categoria B (campanhas) ativas via Listmonk/SES — o Brevo foi removido do projeto (`docs/migracao-brevo-ses.md` §0.2). Este doc valida tanto o disparo automático quanto se o Listmonk/SES de produção estão prontos pra uma campanha agendada.
 
 **A ideia central**: o app publicado no EasyPanel só lê as env vars que estão configuradas *nele*. O `.env.local` da sua máquina é um arquivo completamente separado, que só o `next dev` local enxerga. Então dá pra rodar o app **localmente**, mas apontado pras credenciais **reais** de produção (Listmonk de verdade, e mais tarde o SES de verdade) — isso exercita o código real contra a infra real, sem o app publicado jamais saber que esse teste aconteceu.
 
@@ -70,7 +70,17 @@ curl -s -X POST http://localhost:3000/api/evento/inscricao \
 Confirme:
 - [ ] `{"success":true}`
 - [ ] Subscriber criado no Listmonk **de produção**, na lista certa, com os `attribs` certos (`whatsapp_group_url`, `survey_url`, `unsubscribe_url`)
-- [ ] **Nenhum e-mail é disparado a partir disso** — comportamento esperado, o Brevo continua sendo quem manda o e-mail de boas-vindas normalmente (verifique lá, se quiser confirmar que o fluxo de sempre continua intacto)
+- [ ] **O e-mail 1 chega na sua caixa de entrada** (`SEU_EMAIL_VERIFICADO@dominio.com`) — a Categoria A está ativa (`docs/migracao-brevo-ses.md` §0.2); exige `LISTMONK_TEMPLATE_EMAIL_1_ID` configurado e o template correspondente já criado no Listmonk de produção
+- [ ] `email_1_sent_at` preenchido na linha de `inscricoes` no Supabase
+
+Pra testar o e-mail 2 (+24h) sem esperar: edite a linha de teste no Supabase, mude `created_at` pra mais de 24h atrás, e chame o cron manualmente com o `.env.local` ainda apontado pra produção:
+
+```bash
+curl -s -X POST http://localhost:3000/api/cron/email-sequences \
+  -H "Authorization: Bearer <valor de CRON_SECRET em produção>"
+```
+
+Confirme o e-mail 2 chegando e `email_2_sent_at` preenchido.
 
 ---
 

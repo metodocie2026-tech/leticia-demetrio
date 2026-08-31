@@ -39,14 +39,14 @@ Pra derrubar tudo depois: `npm run listmonk:local:down`.
    - (diferente da produção — lá vai ser o host/porta reais do SES, ver `docs/tutorial-listmonk.md`)
 3. Siga as **Partes 4, 5 e 6 de `docs/tutorial-listmonk.md`**:
    - Criar as listas `Inscrições — Semana Elegância` e `Matrículas` → anotar os IDs
-   - Criar a role `API — Next.js` (`subscribers:manage`, `subscribers:manage_lists`, `subscribers:get`, `subscribers:sql_query`) e o API user com ela → anotar username + token
-   - (Os templates transacionais do e-mail 1/2 não são mais necessários pro escopo atual — só crie os de campanha, se for testar o envio de uma campanha também, seção 6)
+   - Criar a role `API — Next.js` (`subscribers:manage`, `subscribers:manage_lists`, `subscribers:get`, `subscribers:sql_query`, `tx:send`) e o API user com ela → anotar username + token
+   - Criar os templates transacionais do e-mail 1 e 2 (`docs/emails/listmonk/1-email-obrigado-pesquisa.html` e `2-email-grupo-whatsapp.html`) → anotar os IDs — necessários agora que a Categoria A está ativa (`docs/migracao-brevo-ses.md` §0.2)
 
 ---
 
 ## 3. Configurar o `.env.local`
 
-Adicione (sem apagar as variáveis `BREVO_*`, elas continuam lá e continuam sendo chamadas normalmente):
+Adicione (o Brevo foi removido do projeto — não existem mais variáveis `BREVO_*`):
 
 ```env
 LISTMONK_API_URL=http://localhost:9000/api
@@ -54,6 +54,9 @@ LISTMONK_API_USERNAME=<username do API user criado acima>
 LISTMONK_API_KEY=<token do API user>
 LISTMONK_LIST_ID=<id da lista de inscrições>
 LISTMONK_MATRICULAS_LIST_ID=<id da lista de matrículas>
+LISTMONK_TEMPLATE_EMAIL_1_ID=<id do template transacional do e-mail 1>
+LISTMONK_TEMPLATE_EMAIL_2_ID=<id do template transacional do e-mail 2>
+CRON_SECRET=qualquer-coisa-local
 UNSUBSCRIBE_SECRET=qualquer-coisa-local
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
@@ -74,11 +77,20 @@ curl -s -X POST http://localhost:3000/api/evento/inscricao \
 
 Confirme:
 - [ ] Resposta `{"success":true}`
-- [ ] Linha nova em `inscricoes` no Supabase
+- [ ] Linha nova em `inscricoes` no Supabase, com `email_1_sent_at` preenchido
 - [ ] Subscriber novo na lista de inscrições, no painel do Listmonk, com os `attribs` certos (`whatsapp`, `whatsapp_group_url`, `survey_url`, `unsubscribe_url`)
-- [ ] **Nenhum e-mail aparece no Mailhog** — isso é o comportamento certo agora, não um bug (a automação de e-mail continua só no Brevo)
+- [ ] **O e-mail 1 aparece no Mailhog** — a Categoria A está ativa (`docs/migracao-brevo-ses.md` §0.2); se `LISTMONK_TEMPLATE_EMAIL_1_ID` não estiver configurado, nenhum e-mail é enviado silenciosamente (comportamento esperado nesse caso, não um bug)
 
 Repita o mesmo `curl` de novo com o mesmo e-mail — deve continuar dando `{"success":true}`, sem duplicar o subscriber no Listmonk (exercita o caminho de merge/409, que depende da permissão `subscribers:sql_query`).
+
+Pra testar o e-mail 2 (+24h) sem esperar 24h de verdade: no Supabase, edite a linha de teste em `inscricoes` e mude `created_at` pra mais de 24h atrás, depois chame o cron manualmente:
+
+```bash
+curl -s -X POST http://localhost:3000/api/cron/email-sequences \
+  -H "Authorization: Bearer <valor de CRON_SECRET no seu .env.local>"
+```
+
+Confirme a resposta (`sent`/`failed` por passo), o e-mail 2 no Mailhog e `email_2_sent_at` preenchido na linha.
 
 ---
 

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 import { EVENTO_TAG } from '@/constants/evento'
-import { addMatriculasContactToBrevo } from '@/lib/brevo'
 import { addSubscriberToListmonk } from '@/lib/listmonk'
 
 export async function POST(req: NextRequest) {
@@ -21,18 +20,8 @@ export async function POST(req: NextRequest) {
 
     if (error) throw error
 
-    // Não há automação de e-mail pra matriculas_leads hoje, nem no Brevo nem no
-    // Listmonk — os dois só sincronizam o contato.
-    try {
-      await addMatriculasContactToBrevo({
-        nome: body.nome,
-        email: body.email,
-        whatsapp: body.whatsapp,
-      })
-    } catch (err) {
-      console.error('[Brevo] Failed to add matriculas contact:', err)
-    }
-
+    // Não há automação de e-mail pra matriculas_leads hoje — o Listmonk só
+    // sincroniza o contato.
     try {
       await addSubscriberToListmonk({
         nome: body.nome,

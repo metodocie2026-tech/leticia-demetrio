@@ -100,7 +100,7 @@ export function InscricaoForm() {
         type="submit"
         size="lg"
         loading={status === 'submitting'}
-        className="w-full mt-1 !py-2.5 sm:!py-4 !text-sm sm:!text-base"
+        className="w-full mt-1 !py-2.5 sm:!py-4 !text-sm sm:!text-base bg-[#25D366] focus-visible:ring-[#25D366]"
       >
         {status === 'submitting' ? EVENTO.inscricao.enviando : EVENTO.inscricao.cta}
       </Button>

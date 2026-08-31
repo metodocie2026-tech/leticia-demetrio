@@ -2,7 +2,30 @@
 
 Log vivo do progresso real. Atualizar conforme os passos do checklist em `docs/migracao-brevo-ses.md` §11 forem concluídos. Plano completo e contexto em `docs/migracao-brevo-ses.md`.
 
-**Escopo atual (desde 22/07/2026): só sincronia de contato (dual-write) + campanhas de data fixa.** A Categoria A (e-mail imediato + 24h) foi pausada — Brevo continua sendo o único responsável por ela, permanentemente, não só até um cutover. Não existe mais flag `EMAIL_PROVIDER` nem cron — ver §0.1 de `docs/migracao-brevo-ses.md`. As entradas abaixo de 19/07 são histórico de quando esse escopo ainda incluía a Categoria A — mantidas pra registro, não representam mais o estado atual do código.
+**Escopo atual (desde 31/08/2026): migração concluída, Brevo removido.** A Categoria A foi retomada e reconstruída via Listmonk/SES — ver §0.2 de `docs/migracao-brevo-ses.md`. As entradas de 19/07 a 22/07 abaixo documentam a pausa temporária e a remoção original do código — mantidas como histórico, não representam mais o estado atual.
+
+---
+
+## 31/08/2026 — Categoria A retomada, Brevo removido
+
+**Contexto**: SES confirmado fora do sandbox, Listmonk já em produção. O evento trocou de "Semana Elegância na Prática" pra "O Mapa do Estilo Próprio" — como a base de inscritos recomeça do zero, o import de contatos existentes (§4 do plano) deixou de ser necessário.
+
+**Feito:**
+- `src/lib/brevo.ts` deletado. Removidas as chamadas `addContactToBrevo` (rota de inscrição) e `addMatriculasContactToBrevo` (rota de matrículas).
+- `src/lib/listmonk.ts`: `sendListmonkTransactional()` recriada (envia via `/api/tx`, exige subscriber já sincronizado).
+- `src/lib/email-sequences.ts` recriado a partir do desenho de `docs/migracao-brevo-ses.md` §3.2 — mesma config `EMAIL_SEQUENCES`, com uma diferença importante: agora escopada por `EVENTO_TAG` (`src/constants/evento.ts`). Isso evita repetir o quase-incidente de 19/07/2026 (abaixo) — o cron nunca varre linhas de um evento anterior, mesmo que `email_1_sent_at`/`email_2_sent_at` estejam `NULL` nelas.
+- `src/app/api/cron/email-sequences/route.ts` recriada, protegida por `CRON_SECRET`, filtra por `evento = EVENTO_TAG`.
+- `src/app/api/evento/inscricao/route.ts`: após inserir no Supabase e sincronizar o subscriber no Listmonk, dispara o e-mail 1 (imediato) e grava `email_1_sent_at`.
+- `docs/sql-migrations.md`: variáveis `BREVO_*` removidas da lista, `LISTMONK_TEMPLATE_EMAIL_1_ID`/`LISTMONK_TEMPLATE_EMAIL_2_ID`/`CRON_SECRET` adicionadas de volta.
+- `tsc`/build limpos com o código novo.
+
+**Não verificado nesta sessão** (nenhum destes foi testado contra a infra real a partir daqui):
+- Se os templates transacionais 1 e 2 já existem no Listmonk de produção (o HTML já convertido está pronto em `docs/emails/listmonk/`, só falta confirmar se foram de fato criados lá e pegar os IDs).
+- Se o Cron Job do EasyPanel (`docs/tutorial-easypanel-cron.md`) já existe ou precisa ser criado.
+- Se as env vars novas (`LISTMONK_TEMPLATE_EMAIL_1_ID`, `LISTMONK_TEMPLATE_EMAIL_2_ID`, `CRON_SECRET`) já estão configuradas no EasyPanel.
+- Um envio de teste ponta a ponta em produção (inscrição real → e-mail 1 chega → e-mail 2 dispara depois de 24h).
+
+**Próximo passo recomendado**: rodar esse teste ponta a ponta antes de anunciar o evento amplamente — sem isso, não há confirmação de que o e-mail 1/2 está realmente saindo pros novos inscritos.
 
 ---
 

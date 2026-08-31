@@ -351,7 +351,7 @@ export default async function MatriculasAbertasPage() {
               <div className="shrink-0">
                 <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden ring-4 ring-primary/30 shadow-xl">
                   <Image
-                    src="/images/leticia-profile-matriculas.jpeg"
+                    src="/images/leticia_new_profile.png"
                     alt="Letícia Demétrio"
                     width={224}
                     height={224}

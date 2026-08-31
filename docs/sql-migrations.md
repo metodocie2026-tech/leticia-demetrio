@@ -167,16 +167,16 @@ UPDATE lista_espera      SET evento = 'semana-elegancia-na-pratica' WHERE evento
 
 ## Tabelas do projeto
 
-| Tabela | Origem dos dados | Destino Brevo |
+| Tabela | Origem dos dados | Destino Listmonk |
 |---|---|---|
 | `contacts` | Formulário de contato (site principal) | — |
-| `inscricoes` | Inscrição no evento (coluna `evento` distingue Semana Elegância na Prática × Mapa do Estilo Próprio) | Lista `BREVO_LIST_ID` |
+| `inscricoes` | Inscrição no evento (coluna `evento` distingue Semana Elegância na Prática × Mapa do Estilo Próprio) | Lista `LISTMONK_LIST_ID` — e-mail 1 (imediato) + e-mail 2 (+24h) via `LISTMONK_TEMPLATE_EMAIL_*_ID` |
 | `aulas` | Gerenciado pelo painel admin | — |
 | `settings` | Painel admin (toggles e URLs) | — |
-| `matriculas_leads` | Modal de matrícula (`/matriculas-abertas`) — coluna `evento` idem `inscricoes` | Lista `BREVO_MATRICULAS_LIST_ID` |
-| `lista_espera` | Formulário de lista de espera — coluna `evento` idem `inscricoes` | Apenas Supabase |
+| `matriculas_leads` | Modal de matrícula (`/matriculas-abertas`) — coluna `evento` idem `inscricoes` | Lista `LISTMONK_MATRICULAS_LIST_ID` — só sincronia, sem automação |
+| `lista_espera` | Formulário de lista de espera — coluna `evento` idem `inscricoes` | Fora do escopo do Listmonk |
 
-> A coluna "Destino Brevo" reflete o estado atual. Durante a migração descrita em `docs/migracao-brevo-ses.md`, `inscricoes` e `matriculas_leads` passam a ir pro Listmonk assim que `EMAIL_PROVIDER=listmonk` for ativado — `lista_espera` continua fora de qualquer um dos dois.
+> O Brevo foi removido do projeto — ver `docs/migracao-brevo-ses.md`. Todo o envio de e-mail (Categoria A por gatilho + Categoria B por campanha) passa pelo Listmonk/SES.
 
 ---
 
@@ -186,18 +186,18 @@ UPDATE lista_espera      SET evento = 'semana-elegancia-na-pratica' WHERE evento
 NEXT_PUBLIC_SUPABASE_URL=...
 SUPABASE_SERVICE_ROLE_KEY=...
 
-BREVO_API_KEY=...
-BREVO_LIST_ID=...             # Lista de inscrições do evento (Semana)
-BREVO_MATRICULAS_LIST_ID=...  # Lista de leads da página de matrículas
-
-# Migração Brevo → Listmonk/SES — ver docs/migracao-brevo-ses.md
-# Só a sincronia de contato (dual-write) + campanhas estão ativas (Categoria A pausada, §0.1) —
-# por isso não tem EMAIL_PROVIDER, CRON_SECRET nem LISTMONK_TEMPLATE_EMAIL_*_ID aqui.
+# Brevo → Listmonk/SES — ver docs/migracao-brevo-ses.md. Brevo foi removido do
+# projeto (sem BREVO_API_KEY/BREVO_LIST_ID/BREVO_MATRICULAS_LIST_ID); Categoria A
+# (e-mail 1 imediato + e-mail 2 +24h) roda via Listmonk/SES, por isso precisa de
+# CRON_SECRET e dos LISTMONK_TEMPLATE_EMAIL_*_ID.
 LISTMONK_API_URL=...                # ex: https://listmonk.leticiademetrio.com.br/api
 LISTMONK_API_USERNAME=...           # usuário do API user criado em docs/tutorial-listmonk.md Parte 6
 LISTMONK_API_KEY=...                # token do mesmo API user
 LISTMONK_LIST_ID=...                # lista de inscrições no Listmonk
 LISTMONK_MATRICULAS_LIST_ID=...     # lista de matrículas no Listmonk
+LISTMONK_TEMPLATE_EMAIL_1_ID=...    # template transacional do e-mail 1 (imediato)
+LISTMONK_TEMPLATE_EMAIL_2_ID=...    # template transacional do e-mail 2 (+24h)
+CRON_SECRET=...                     # autentica o Cron Job do EasyPanel contra /api/cron/email-sequences — string aleatória longa
 UNSUBSCRIBE_SECRET=...              # assina o token do link de cancelamento — string aleatória longa, gerar uma vez e nunca trocar (trocar invalida todo link já enviado)
 NEXT_PUBLIC_SITE_URL=https://www.leticiademetrio.com.br  # usado pra montar o link de /cancelar-inscricao nos e-mails
 ```
