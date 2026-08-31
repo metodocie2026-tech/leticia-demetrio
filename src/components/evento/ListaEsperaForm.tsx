@@ -51,7 +51,7 @@ export function ListaEsperaForm() {
         }),
       })
       if (!res.ok) throw new Error()
-      router.push('/semana-elegancia-na-pratica/lista-de-espera/obrigada')
+      router.push('/mapa-do-estilo-proprio/lista-de-espera/obrigada')
     } catch {
       setStatus('error')
     }

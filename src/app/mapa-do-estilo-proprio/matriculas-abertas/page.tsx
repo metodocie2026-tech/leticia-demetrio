@@ -66,10 +66,10 @@ const BONUSES = [
 ];
 
 const BIO_PARAGRAPHS = [
-  "Sou consultora de imagem e criadora do Método C.I.E. E durante muito tempo, eu também achei que não tinha estilo. Eu me vestia, mas não me reconhecia. Copiava referências, seguia tendências e ainda assim sentia que algo não encaixava.",
-  "Tudo começou a mudar quando eu entendi que estilo não é sobre moda. É sobre clareza, identidade e intenção.",
-  "Na semana Elegância na Prática, eu vou te mostrar como aplicar isso na vida real, de forma leve, prática e possível.",
-  "Se hoje você sente que sua imagem não representa quem você é, essa aula é para você.",
+  "Sou consultora de imagem e criadora do Método C.I.E. Ao longo dos últimos anos, já acompanhei centenas de mulheres e percebi algo que se repetia: muitas delas tinham roupas, referências e até sabiam do que gostavam, mas ainda sentiam dificuldade de reconhecer o próprio estilo e traduzir sua personalidade através dos looks.",
+  "E foi entendendo isso que uma coisa ficou cada vez mais clara para mim: estilo próprio não é sobre se encaixar em uma definição. É sobre reconhecer o que representa você e a imagem que deseja transmitir.",
+  "Foi a partir dessa visão que nasceu o Mapa do Estilo Próprio.",
+  "Se hoje você sente que seus looks ainda não mostram tudo o que você é, essa aula é para você.",
 ];
 
 const FAQS = [
@@ -130,7 +130,7 @@ export default async function MatriculasAbertasPage() {
             </p>
             <h1 className="font-heading text-xl sm:text-3xl lg:text-5xl font-bold text-white leading-[1.15] mb-4 lg:mb-8">
               Aprenda a se vestir de forma{" "}
-              <span className="text-[#f0c987]">elegante e prática</span>{" "}
+              <span className="text-gold">elegante e prática</span>{" "}
               para qualquer ocasião em até 30 dias.
             </h1>
 

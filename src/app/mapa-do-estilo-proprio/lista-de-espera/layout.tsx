@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Lista de Espera — Semana Elegância na Prática | Letícia Demétrio',
-  description: 'Entre na lista de espera da Semana Elegância na Prática e seja a primeira a saber quando as vagas abrirem.',
+  title: 'Lista de Espera — Mapa do Estilo Próprio | Letícia Demétrio',
+  description: 'Entre na lista de espera do Mapa do Estilo Próprio e seja a primeira a saber quando as vagas abrirem.',
   robots: { index: false, follow: false },
 }
 

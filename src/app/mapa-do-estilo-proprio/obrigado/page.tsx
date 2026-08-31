@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-const SUPORTE_MSG = 'Preciso de ajuda sobre a Semana da Elegância na Prática!'
+const SUPORTE_MSG = 'Preciso de ajuda sobre o Mapa do Estilo Próprio!'
 
 export default async function ObrigadaPage() {
   const settings = await getSettings()
@@ -28,7 +28,7 @@ export default async function ObrigadaPage() {
           {/* ── Hero ───────────────────────────────────────────────── */}
           <div className="text-center py-1 sm:py-4">
             <span className="inline-block mb-2 sm:mb-4 text-xs font-semibold tracking-[0.2em] uppercase font-body border border-primary/40 rounded-full px-4 py-1.5 bg-primary/8 text-primary">
-              Semana Elegância na Prática
+              {EVENTO.nome}
             </span>
             <h1 className="font-heading text-2xl sm:text-4xl font-bold text-dark leading-tight">
               Inscrição quase confirmada!
@@ -99,7 +99,7 @@ export default async function ObrigadaPage() {
               <div className="flex items-center gap-2">
                 <span className="h-px flex-1 bg-neutral" aria-hidden="true" />
                 <span className="text-xs font-body font-semibold text-muted tracking-wide uppercase">
-                  Semana Elegância na Prática
+                  {EVENTO.nome}
                 </span>
                 <span className="h-px flex-1 bg-neutral" aria-hidden="true" />
               </div>
@@ -140,10 +140,10 @@ export default async function ObrigadaPage() {
           {/* ── Closing / event promise ─────────────────────────── */}
           <div className="bg-white rounded-2xl border border-primary/10 shadow-sm px-6 py-6">
             <p className="font-heading font-bold text-dark text-base leading-snug mb-4">
-              Na Semana da Elegância na Prática, você vai sair sabendo:
+              No {EVENTO.nome}, você vai começar a entender:
             </p>
             <ul className="flex flex-col gap-2 mb-5">
-              {['o que vestir,', 'por que vestir,', 'e como repetir isso na sua rotina.'].map((item) => (
+              {['o que realmente representa você no seu vestir;', 'como sua personalidade, rotina e intenção influenciam o seu estilo;', 'e como transformar tudo isso em looks com mais identidade e presença.'].map((item) => (
                 <li key={item} className="flex items-center gap-2.5 text-sm font-body text-subtle">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" aria-hidden="true" />
                   {item}
@@ -151,10 +151,10 @@ export default async function ObrigadaPage() {
               ))}
             </ul>
             <p className="text-dark font-body font-semibold text-sm leading-relaxed mb-1">
-              Aprenda a se vestir de forma elegante e prática para qualquer ocasião em até 30 dias.
+              Descubra o caminho para construir um estilo próprio e ter mais segurança e presença através dos seus looks.
             </p>
             <p className="text-muted font-body text-xs">
-              O evento começa em breve. Reserve esse tempo para você.
+              O evento começa em breve. Reserve esse momento para você.
             </p>
           </div>
 

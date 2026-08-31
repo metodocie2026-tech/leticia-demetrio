@@ -15,7 +15,7 @@ export default async function AulasPage({
     searchParams,
   ])
 
-  if (!settings.aulas_ativo) redirect('/semana-elegancia-na-pratica/matriculas-abertas')
+  if (!settings.aulas_ativo) redirect('/mapa-do-estilo-proprio/matriculas-abertas')
 
   const initialDay = Math.max(1, parseInt(params.aula ?? '1') || 1)
 

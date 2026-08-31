@@ -87,7 +87,7 @@ export function MatriculasCta({ variant, ctaUrl }: Props) {
       <div className={cn('relative inline-block', variant === 'hero' && 'py-1.5')}>
         {variant === 'hero' && (
           <span
-            className="absolute -inset-2 rounded-full bg-[#f0c987] opacity-60 blur-xl animate-pulse pointer-events-none"
+            className="absolute -inset-2 rounded-full bg-gold opacity-60 blur-xl animate-pulse pointer-events-none"
             aria-hidden="true"
           />
         )}
@@ -100,7 +100,7 @@ export function MatriculasCta({ variant, ctaUrl }: Props) {
             variant === 'light' &&
               'text-sm sm:text-base px-8 sm:px-10 py-4 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 bg-white text-primary hover:bg-primary-light focus-visible:ring-white',
             variant === 'hero' &&
-              'text-base sm:text-lg px-10 sm:px-14 py-4 sm:py-5 shadow-2xl hover:shadow-[0_0_40px_rgba(240,201,135,0.6)] hover:-translate-y-1 hover:scale-105 bg-white text-primary ring-4 ring-[#f0c987] focus-visible:ring-white',
+              'text-base sm:text-lg px-10 sm:px-14 py-4 sm:py-5 shadow-2xl hover:shadow-[0_0_40px_rgba(240,201,135,0.6)] hover:-translate-y-1 hover:scale-105 bg-white text-primary ring-4 ring-gold focus-visible:ring-white',
           )}
         >
           QUERO GARANTIR MINHA VAGA AGORA!

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import type { InscricaoData } from '@/constants/evento'
+import { EVENTO_TAG, type InscricaoData } from '@/constants/evento'
 import type { UtmParams } from '@/utils/utm'
 import { supabase } from '@/lib/supabase'
 import { getSettings } from '@/lib/settings'
@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
       nome: body.nome,
       email: body.email,
       whatsapp: body.whatsapp,
-      evento: 'semana-elegancia-na-pratica',
+      evento: EVENTO_TAG,
       utm_source: body.utm_source ?? '',
       utm_medium: body.utm_medium ?? '',
       utm_campaign: body.utm_campaign ?? '',

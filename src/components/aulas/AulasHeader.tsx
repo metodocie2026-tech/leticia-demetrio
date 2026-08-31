@@ -19,7 +19,7 @@ export function AulasHeader() {
 
         <span
           className="shrink-0 text-xs font-body font-semibold tracking-widest uppercase text-primary bg-primary/10 border border-primary/20 px-3 py-1.5 rounded-full"
-          aria-label="Semana Elegância na Prática — Replays"
+          aria-label="Mapa do Estilo Próprio — Replays"
         >
           Semana da Imagem
         </span>

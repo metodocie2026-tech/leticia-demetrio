@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
+import { EVENTO_TAG } from '@/constants/evento'
 import { addMatriculasContactToBrevo } from '@/lib/brevo'
 import { addSubscriberToListmonk } from '@/lib/listmonk'
 
@@ -15,6 +16,7 @@ export async function POST(req: NextRequest) {
       nome: body.nome,
       email: body.email,
       whatsapp: body.whatsapp,
+      evento: EVENTO_TAG,
     })
 
     if (error) throw error

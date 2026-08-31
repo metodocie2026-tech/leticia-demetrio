@@ -6,13 +6,13 @@ import { ListaEsperaForm } from '@/components/evento/ListaEsperaForm'
 import { WhatsAppFloat } from '@/components/sections/WhatsAppFloat'
 import { getSettings } from '@/lib/settings'
 
-const SUPORTE_MSG = 'Olá Letícia! Tenho dúvidas sobre a lista de espera da Semana Elegância na Prática.'
+const SUPORTE_MSG = 'Olá Letícia! Tenho dúvidas sobre a lista de espera do Mapa do Estilo Próprio.'
 
 const BIO_PARAGRAPHS = [
-  'Sou consultora de imagem e criadora do Método C.I.E. E durante muito tempo, eu também achei que não tinha estilo. Eu me vestia, mas não me reconhecia. Copiava referências, seguia tendências e ainda assim sentia que algo não encaixava.',
-  'Tudo começou a mudar quando eu entendi que estilo não é sobre moda. É sobre clareza, identidade e intenção.',
-  'Na semana Elegância na Prática, eu vou te mostrar como aplicar isso na vida real, de forma leve, prática e possível.',
-  'Se hoje você sente que sua imagem não representa quem você é, essa aula é para você.',
+  'Sou consultora de imagem e criadora do Método C.I.E. Ao longo dos últimos anos, já acompanhei centenas de mulheres e percebi algo que se repetia: muitas delas tinham roupas, referências e até sabiam do que gostavam, mas ainda sentiam dificuldade de reconhecer o próprio estilo e traduzir sua personalidade através dos looks.',
+  'E foi entendendo isso que uma coisa ficou cada vez mais clara para mim: estilo próprio não é sobre se encaixar em uma definição. É sobre reconhecer o que representa você e a imagem que deseja transmitir.',
+  'Foi a partir dessa visão que nasceu o Mapa do Estilo Próprio.',
+  'Se hoje você sente que seus looks ainda não mostram tudo o que você é, essa aula é para você.',
 ]
 
 export default async function ListaEsperaPage() {
@@ -42,12 +42,11 @@ export default async function ListaEsperaPage() {
                 Lista de Espera
               </span>
               <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-dark leading-[1.1] mb-5">
-                Semana{' '}
-                <span className="text-primary">Elegância</span>{' '}
-                na Prática!
+                O Mapa do{' '}
+                <span className="text-primary">Estilo Próprio</span>
               </h1>
               <p className="font-body text-subtle text-base lg:text-lg leading-relaxed">
-                Aprenda a se vestir de forma elegante e prática para qualquer ocasião em até 30 dias.
+                Aprenda a descobrir o seu estilo e ter mais segurança e presença na sua imagem.
               </p>
             </div>
 
@@ -59,7 +58,7 @@ export default async function ListaEsperaPage() {
                   Lista de Espera
                 </span>
                 <h1 className="font-heading text-2xl font-bold text-dark leading-tight">
-                  Semana <span className="text-primary">Elegância</span> na Prática!
+                  O Mapa do <span className="text-primary">Estilo Próprio</span>
                 </h1>
               </div>
               <ListaEsperaForm />
@@ -76,11 +75,11 @@ export default async function ListaEsperaPage() {
           </div>
           <div className="relative max-w-2xl mx-auto px-4 sm:px-6 text-center">
             <p className="font-heading text-2xl sm:text-3xl font-bold text-white leading-snug mb-6">
-              O problema não é o seu guarda-roupa.{' '}
-              <span className="text-white/70">É a falta de clareza na hora de se vestir.</span>
+              Seu estilo é construído a partir do que representa você.{' '}
+              <span className="text-white/70">É esse caminho que você vai descobrir no Mapa do Estilo Próprio.</span>
             </p>
             <p className="font-body text-white/75 text-base leading-relaxed mb-10">
-              Mesmo que você tenha um guarda-roupa cheio, mas ainda se sinta perdida na hora de se vestir ou nunca saiba se está bem vestida de verdade.
+              Da sua personalidade, da sua rotina e da imagem que deseja transmitir para então aprender a traduzir tudo isso nos seus looks.
             </p>
             <a
               href="#form"

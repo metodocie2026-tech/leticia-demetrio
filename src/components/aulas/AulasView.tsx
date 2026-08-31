@@ -133,7 +133,7 @@ export function AulasView({ videos, initialDay = 1 }: { videos: AulaVideo[]; ini
       >
         <div className="px-5 py-4 border-b border-white/8 sticky top-0 bg-dark/95 backdrop-blur-sm z-10">
           <p className="font-heading font-bold text-white text-sm leading-tight">
-            Semana Elegância na Prática
+            Mapa do Estilo Próprio
           </p>
           <p className="text-white/35 text-xs font-body mt-0.5">
             {videos.length} aulas

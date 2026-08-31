@@ -6,26 +6,34 @@
    references these variables automatically.
    ============================================================ */
 :root {
-  /* Primary — #ff006b hot pink, the Letícia brand colour */
-  --primary:        #ff006b;
-  --primary-light:  #ffe0ef;   /* ~12% tint on white  */
-  --primary-medium: #ff80b5;   /* 50% tint            */
+  /* Primary — deep berry red, the Letícia brand colour */
+  --primary:        #9f2042;
+  --primary-light:  #f8e5ee;   /* pale pink tint on white */
+  --primary-medium: #cf90a0;   /* 50% tint                */
 
-  /* Secondary — deep wine rose (gradient partner, dark accents) */
-  --secondary:       #8b0038;
-  --secondary-light: #f5e0eb;
-  --secondary-dark:  #5c0025;
+  /* Secondary — deep wine (gradient partner, dark accents) */
+  --secondary:       #7b0d1e;
+  --secondary-light: #eddddf;
+  --secondary-dark:  #3d1308;
 
-  /* Accent — slightly darker pink for hover / pressed states */
-  --accent:       #cc0054;
-  --accent-light: #ffd6e7;
+  /* Accent — rich garnet for hover / pressed states */
+  --accent:       #7d1b2e;
+  --accent-light: #efe4e6;
 
-  /* Neutrals — built around the brand's black / white / #e1e1df grey */
-  --dark:    #111111;   /* editorial black — headings, dark sections */
-  --subtle:  #4a4a4a;   /* secondary text, mid-tone icons            */
-  --muted:   #9a9a97;   /* placeholders, disabled, captions          */
-  --neutral: #e1e1df;   /* borders, dividers, grey fills             */
-  --surface: #fafaf9;   /* light section & card backgrounds          */
+  /* Gold — kept from the previous palette (CTAs, highlights) */
+  --gold:       #f0c987;
+  --gold-light: #fcf4e7;
+
+  /* Blush — lighter rose tint derived from primary, for sections that need
+     a lighter step between dark blocks without going all the way to white */
+  --blush: #e2bcc6;
+
+  /* Neutrals — warm brown-black replacing the old editorial black */
+  --dark:    #211103;   /* near-black brown — headings, dark sections */
+  --subtle:  #6f645b;   /* secondary text, mid-tone icons             */
+  --muted:   #a6a09a;   /* placeholders, disabled, captions           */
+  --neutral: #f5e9ec;   /* borders, dividers, grey fills              */
+  --surface: #fdf9fa;   /* light section & card backgrounds           */
 }
 
 @theme inline {
@@ -40,6 +48,11 @@
 
   --color-accent:           var(--accent);
   --color-accent-light:     var(--accent-light);
+
+  --color-gold:             var(--gold);
+  --color-gold-light:       var(--gold-light);
+
+  --color-blush:            var(--blush);
 
   --color-dark:             var(--dark);
   --color-subtle:           var(--subtle);

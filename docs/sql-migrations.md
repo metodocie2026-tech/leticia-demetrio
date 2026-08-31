@@ -92,8 +92,13 @@ CREATE TABLE IF NOT EXISTS matriculas_leads (
   nome       TEXT NOT NULL,
   email      TEXT NOT NULL,
   whatsapp   TEXT NOT NULL,
+  evento     TEXT NOT NULL DEFAULT '',
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- Adiciona a coluna de evento caso a tabela já existisse sem ela
+ALTER TABLE matriculas_leads
+  ADD COLUMN IF NOT EXISTS evento TEXT NOT NULL DEFAULT '';
 
 -- ── 6. Lista de espera ─────────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS lista_espera (
@@ -101,8 +106,13 @@ CREATE TABLE IF NOT EXISTS lista_espera (
   nome       TEXT NOT NULL,
   email      TEXT NOT NULL,
   whatsapp   TEXT NOT NULL,
+  evento     TEXT NOT NULL DEFAULT '',
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+
+-- Adiciona a coluna de evento caso a tabela já existisse sem ela
+ALTER TABLE lista_espera
+  ADD COLUMN IF NOT EXISTS evento TEXT NOT NULL DEFAULT '';
 
 -- ── 7. Migração Brevo → Listmonk/SES (docs/migracao-brevo-ses.md) ──────────
 -- Marca quando cada e-mail da Categoria A (gatilho relativo à inscrição) foi
@@ -138,16 +148,33 @@ WHERE email_2_sent_at IS NULL
 
 ---
 
+## Backfill do evento em `matriculas_leads` e `lista_espera` (rodar uma única vez)
+
+As colunas `evento` em `matriculas_leads` e `lista_espera` foram adicionadas quando o
+evento mudou de "Semana Elegância na Prática" para "O Mapa do Estilo Próprio"
+(rota `/mapa-do-estilo-proprio`, tag `mapa-do-estilo-proprio` — ver `EVENTO_TAG` em
+`src/constants/evento.ts`). Toda linha criada antes dessa migração é da Semana
+Elegância na Prática (não existia outro evento antes) e fica com `evento = ''` por
+causa do `DEFAULT ''` da coluna nova — rode este backfill uma vez para marcá-las como
+legado, senão o painel `/admin/resultados` não consegue separar "antigo" de "novo".
+
+```sql
+UPDATE matriculas_leads SET evento = 'semana-elegancia-na-pratica' WHERE evento = '';
+UPDATE lista_espera      SET evento = 'semana-elegancia-na-pratica' WHERE evento = '';
+```
+
+---
+
 ## Tabelas do projeto
 
 | Tabela | Origem dos dados | Destino Brevo |
 |---|---|---|
 | `contacts` | Formulário de contato (site principal) | — |
-| `inscricoes` | Inscrição na Semana Elegância na Prática | Lista `BREVO_LIST_ID` |
+| `inscricoes` | Inscrição no evento (coluna `evento` distingue Semana Elegância na Prática × Mapa do Estilo Próprio) | Lista `BREVO_LIST_ID` |
 | `aulas` | Gerenciado pelo painel admin | — |
 | `settings` | Painel admin (toggles e URLs) | — |
-| `matriculas_leads` | Modal de matrícula (`/matriculas-abertas`) | Lista `BREVO_MATRICULAS_LIST_ID` |
-| `lista_espera` | Formulário de lista de espera | Apenas Supabase |
+| `matriculas_leads` | Modal de matrícula (`/matriculas-abertas`) — coluna `evento` idem `inscricoes` | Lista `BREVO_MATRICULAS_LIST_ID` |
+| `lista_espera` | Formulário de lista de espera — coluna `evento` idem `inscricoes` | Apenas Supabase |
 
 > A coluna "Destino Brevo" reflete o estado atual. Durante a migração descrita em `docs/migracao-brevo-ses.md`, `inscricoes` e `matriculas_leads` passam a ir pro Listmonk assim que `EMAIL_PROVIDER=listmonk` for ativado — `lista_espera` continua fora de qualquer um dos dois.
 
