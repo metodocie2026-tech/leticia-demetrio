@@ -17,7 +17,7 @@ export default async function Home() {
   // Redirect to the event page only when the site is off AND the event is on
   // (avoids a redirect loop if both are disabled)
   if (!settings.site_ativo && settings.evento_semana_ativo) {
-    redirect('/semana-elegancia-na-pratica')
+    redirect('/mapa-do-estilo-proprio')
   }
 
   return (

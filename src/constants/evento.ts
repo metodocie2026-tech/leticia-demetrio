@@ -2,83 +2,88 @@
 // EVENT CONTENT — edit everything here; pages and components read from this file
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Tag stored in Supabase (`inscricoes.evento`, `matriculas_leads.evento`,
+// `lista_espera.evento`) to identify rows created for this event. Used by the
+// admin reports to separate this event's data from the legacy one — see
+// LEGACY_EVENTO_TAG in src/app/admin/resultados/page.tsx.
+export const EVENTO_TAG = 'mapa-do-estilo-proprio'
+
 export const EVENTO = {
   // ── Identity ───────────────────────────────────────────────────────────────
-  nome: "Semana Elegância na Prática",
+  nome: "O Mapa do Estilo Próprio",
   tagline:
-    "Aprenda a se vestir de forma elegante e prática para qualquer ocasião em até 30 dias.",
-  data: "27, 29 e 30 de julho de 2026",
+    "Aprenda a descobrir o seu estilo e ter mais segurança e presença na sua imagem.",
+  data: "14, 16 e 18 de setembro de 2026",
   horario: "YouTube · Às 08h",
   gratuito: true,
 
   // ── Metadata ───────────────────────────────────────────────────────────────
   seo: {
-    titulo: "Aprenda a se vestir com elegância em 30 dias - Letícia Demétrio",
+    titulo: "Descubra o seu estilo com o Mapa do Estilo Próprio - Letícia Demétrio",
     descricao:
-      "Aprenda a se vestir com elegância, segurança e intenção para qualquer ocasião em até 30 dias. Participe gratuitamente das 3 aulas da Semana Elegância na Prática, com Letícia Demétrio.",
+      "No Mapa do Estilo Próprio, você vai descobrir o caminho para transformar seu estilo em looks que realmente representem você. Participe gratuitamente das 3 aulas com Letícia Demétrio.",
   },
 
   // ── Presentation page ──────────────────────────────────────────────────────
   apresentacao: {
     hero: {
-      badge: "3 aulas gratuitas · YouTube · 27, 29 e 30/07 às 08h",
+      badge: "3 aulas gratuitas · YouTube · 14, 16 e 18/09 às 08h",
       titulo:
-        "Aprenda a se vestir de forma elegante e prática para qualquer ocasião em até 30 dias.",
+        "Aprenda a descobrir o seu estilo e ter mais segurança e presença na sua imagem.",
       subtitulo:
-        "O problema não é o seu guarda-roupa. É a falta de clareza na hora de se vestir.",
-      cta: "Quero minha vaga gratuita",
+        "No Mapa do Estilo Próprio, você vai descobrir o caminho para transformar seu estilo em looks que realmente representem você.",
+      cta: "Quero descobrir o meu estilo!",
     },
 
     paraQuem: {
-      titulo:
-        "Se você sente que sempre falta alguma coisa na hora de se vestir…",
+      titulo: "Se você sente que sua imagem ainda não representa tudo o que você é…",
       itens: [
-        "Tem um guarda-roupa cheio, mas ainda sente que não tem o que vestir",
-        "Compra roupas… mas nunca se sente realmente bem com o resultado",
-        'Monta looks e sempre pensa: "tá faltando alguma coisa…"',
-        "Repete as mesmas combinações por insegurança ou falta de ideia",
-        "Se arruma… mas não se sente elegante de verdade",
-        "Olha no espelho e sente que sua imagem não representa quem você é",
+        "Tem roupas que gosta, mas não consegue transformá-las em looks com a sua personalidade.",
+        "Se veste bem, mas sente que seus looks ainda não representam quem você é.",
+        "No trabalho, sente que sua imagem não transmite a presença que gostaria.",
+        "Repete as mesmas combinações por medo de sair do básico e acabar exagerando.",
+        "Quer colocar mais personalidade nos looks profissionais, mas não sabe como fazer isso sem perder a seriedade.",
+        "Sabe que sua imagem comunica, mas ainda não consegue usá-la a favor de quem você é e de como quer ser percebida.",
       ],
     },
 
     problema: {
       texto:
-        "O problema não é você. E nem o seu guarda-roupa. O que está faltando é direção na hora de se vestir e ninguém nunca te mostrou esse caminho.",
-      conclusao: "Porque não é sobre tentar mais… é sobre saber o que fazer.",
-      destaque:
-        "E é isso que você vai aprender na Semana Elegância na Prática.",
+        "Talvez você tenha passado muito tempo tentando descobrir em qual estilo se encaixa. Mas estilo próprio não é escolher uma única definição.",
+      conclusao: "Seu estilo é construído a partir do que representa você.",
+      expansao:
+        "Da sua personalidade, da sua rotina e da imagem que deseja transmitir para então aprender a traduzir tudo isso nos seus looks.",
+      destaque: "É esse caminho que você vai descobrir no Mapa do Estilo Próprio.",
+      cta: "Quero descobrir o meu estilo!",
     },
 
     agenda: {
-      titulo: "O que você vai aprender na Semana Elegância na Prática",
+      titulo: "O que você vai descobrir no Mapa do Estilo Próprio",
       subtitulo:
-        "Três aulas gratuitas para você aprender a se vestir com elegância, segurança e intenção na prática e no seu dia a dia.",
+        "Três aulas gratuitas para você entender o que constrói o seu estilo e como ele pode transformar a forma como você se expressa através dos seus looks.",
       aulas: [
         {
           numero: "Aula 1",
-          titulo: "Por que você ainda não consegue se vestir bem todos os dias",
+          titulo: "Os 7 estilos: comece a reconhecer o que representa você",
           descricao:
-            "Descubra por que você sente que tem roupa, mas ainda trava na hora de montar looks e como começar a enxergar sua imagem com mais clareza.",
-          plataforma: "YouTube · 27/07 às 08h · link exclusivo para inscritas",
+            "Conheça os diferentes universos de estilo, suas principais características e os elementos que podem ajudar você a reconhecer o que faz sentido para a sua imagem.",
+          plataforma: "YouTube · 14/09 às 08h · link exclusivo para inscritas",
           destaque: false,
         },
         {
           numero: "Aula 2",
-          titulo:
-            "Como montar looks elegantes que realmente funcionam no seu dia a dia",
+          titulo: "Por que gostar de um estilo não é suficiente para construir o seu",
           descricao:
-            "Aprenda a combinar peças, cores e detalhes de forma simples para transformar produções básicas em looks com mais intenção e presença.",
-          plataforma: "YouTube · 29/07 às 08h · link exclusivo para inscritas",
+            "Entenda como sua personalidade, sua rotina e a imagem que deseja transmitir influenciam o seu estilo e a forma como seus looks são percebidos.",
+          plataforma: "YouTube · 16/09 às 08h · link exclusivo para inscritas",
           destaque: false,
         },
         {
           numero: "Aula 3",
-          titulo:
-            "O passo a passo para se vestir bem todos os dias com elegância e segurança",
+          titulo: "O caminho para transformar seu estilo em looks que representem você",
           descricao:
-            "Como construir uma imagem mais elegante, autêntica e segura sem depender de tendências ou de um guarda-roupa novo.",
-          plataforma: "YouTube · 30/07 às 08h · link exclusivo para inscritas",
+            "Descubra o que precisa acontecer para sair das referências soltas e construir uma imagem com mais personalidade, intenção e presença.",
+          plataforma: "YouTube · 18/09 às 08h · link exclusivo para inscritas",
           destaque: false,
         },
       ],
@@ -88,57 +93,56 @@ export const EVENTO = {
       titulo: "Tudo o que você vai ter acesso",
       itens: [
         {
-          emoji: "✨",
-          titulo: "Clareza para se vestir com mais segurança!",
+          titulo: "Mais clareza sobre o seu estilo",
           descricao:
-            "Você vai parar de se arrumar com dúvida e finalmente se sentir bem com o que vê no espelho.",
+            "Você vai começar a reconhecer os elementos que representam sua personalidade e entender o que realmente faz sentido para a sua imagem.",
         },
         {
-          emoji: "🎓",
-          titulo: "3 aulas práticas e gratuitas",
+          titulo: "3 aulas gratuitas sobre estilo e imagem",
           descricao:
-            "Aprenda exatamente o que fazer na hora de se vestir, com orientações simples que você já consegue aplicar no mesmo dia.",
+            "Três encontros para entender o que constrói o seu estilo, como seus looks são percebidos e o que existe por trás de uma imagem com mais personalidade e presença.",
         },
         {
-          emoji: "💬",
           titulo: "Grupo exclusivo no WhatsApp",
           descricao:
-            "Para receber os avisos, links das aulas e se sentir acompanhada durante toda a jornada, sem se sentir sozinha nesse processo.",
+            "Receba todos os avisos, links das aulas e conteúdos do evento para acompanhar cada etapa do Mapa do Estilo Próprio.",
         },
         {
-          emoji: "👗",
-          titulo: "Conteúdo aplicável no dia a dia",
+          titulo: "Um novo olhar para os seus looks",
           descricao:
-            "Nada de teoria difícil, tudo pensado para funcionar na sua rotina, com o que você já tem no seu guarda-roupa.",
+            "Entenda por que algumas escolhas representam você e outras não e comece a enxergar seus looks com mais intenção, personalidade e consciência.",
         },
       ],
       fechamento: {
-        linha1: "Você não precisa de mais roupas.",
-        linha2: "Você precisa saber o que fazer com elas.",
+        linha1: "Você não precisa se vestir como todo mundo.",
+        linha2: "Precisa descobrir o que realmente representa você.",
+        cta: "Quero descobrir o meu estilo!",
       },
     },
 
     sobre: {
       titulo: "Prazer, eu sou Letícia Demétrio",
       paragrafos: [
-        "Sou consultora de imagem e criadora do Método C.I.E. E durante muito tempo, eu também achei que não tinha estilo. Eu me vestia, mas não me reconhecia. Copiava referências, seguia tendências e ainda assim sentia que algo não encaixava.",
-        "Tudo começou a mudar quando eu entendi que estilo não é sobre moda. É sobre clareza, identidade e intenção.",
-        "Na Semana Elegância na Prática, eu vou te mostrar como aplicar isso na vida real, de forma leve, prática e possível.",
-        "Se hoje você sente que sua imagem não representa quem você é, essa aula é para você.",
+        "Sou consultora de imagem e criadora do Método C.I.E. Ao longo dos últimos anos, já acompanhei centenas de mulheres e percebi algo que se repetia: muitas delas tinham roupas, referências e até sabiam do que gostavam, mas ainda sentiam dificuldade de reconhecer o próprio estilo e traduzir sua personalidade através dos looks.",
+        "E foi entendendo isso que uma coisa ficou cada vez mais clara para mim: estilo próprio não é sobre se encaixar em uma definição. É sobre reconhecer o que representa você e a imagem que deseja transmitir.",
+        "Foi a partir dessa visão que nasceu o Mapa do Estilo Próprio.",
+        "Durante esses três encontros, eu vou te ajudar a enxergar o que existe por trás do seu estilo, entender por que algumas escolhas representam você e outras não, e descobrir o caminho para construir uma imagem com mais personalidade, intenção e presença.",
+        "Se você sente que seus looks ainda não mostram tudo o que você é, esse evento é para você.",
       ],
     },
 
     ctaFinal: {
-      titulo: "De forma simples, prática e possível para a sua realidade.",
-      subtitulo: "A inscrição é gratuita e leva menos de um minuto.",
-      cta: "Garantir minha vaga agora",
+      titulo: "Seu estilo não precisa ser inventado. Ele precisa ser reconhecido.",
+      subtitulo:
+        "Descubra o que constrói o seu estilo e o caminho para traduzi-lo em looks que realmente representem você.",
+      cta: "Quero descobrir o meu estilo!",
     },
   },
 
   // ── Registration page ──────────────────────────────────────────────────────
   inscricao: {
     seo: {
-      titulo: "Inscrição — Semana Elegância na Prática | Letícia Demétrio",
+      titulo: "Inscrição — Mapa do Estilo Próprio | Letícia Demétrio",
     },
     titulo: "Garanta sua vaga gratuita",
     subtitulo: "Preencha os dados abaixo e pronto você está dentro!",
@@ -151,8 +155,7 @@ export const EVENTO = {
   // ── Thank you page ─────────────────────────────────────────────────────────
   obrigada: {
     seo: {
-      titulo:
-        "Inscrição quase confirmada! — Semana Elegância na Prática | Letícia Demétrio",
+      titulo: "Inscrição quase confirmada! — Mapa do Estilo Próprio | Letícia Demétrio",
     },
     // URL da pesquisa/formulário para resgatar o presente (Mapa da Silhueta)
     surveyUrl: "#", // ← substitua pelo link real do formulário

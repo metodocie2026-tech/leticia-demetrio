@@ -8,7 +8,7 @@ import { WhatsAppFloat } from "@/components/sections/WhatsAppFloat";
 import { EVENTO } from "@/constants/evento";
 import { getSettings } from "@/lib/settings";
 
-const SUPORTE_MSG = "Preciso de ajuda sobre a Semana da Elegância na Prática!";
+const SUPORTE_MSG = "Preciso de ajuda sobre o Mapa do Estilo Próprio!";
 
 const { apresentacao: A } = EVENTO;
 
@@ -78,9 +78,7 @@ export default async function SemanaPage() {
               </span>
 
               <h1 className="font-heading text-xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white leading-[1.15] mb-2">
-                Aprenda a se vestir de forma{" "}
-                <span className="text-primary">elegante e prática</span> para
-                qualquer ocasião em até 30 dias.
+                {A.hero.titulo}
               </h1>
 
               {/* Subtitle — hidden on mobile to keep form close to the fold */}
@@ -111,13 +109,13 @@ export default async function SemanaPage() {
 
         {/* ── Para quem é ──────────────────────────────────────────────── */}
         <section
-          className="py-16 lg:py-24 bg-dark"
+          className="py-16 lg:py-24 bg-blush"
           aria-labelledby="para-quem-titulo"
         >
           <div className="max-w-3xl mx-auto px-4 sm:px-6">
             <h2
               id="para-quem-titulo"
-              className="font-heading text-2xl sm:text-3xl font-bold text-white mb-10 text-center"
+              className="font-heading text-2xl sm:text-3xl font-bold text-dark mb-10 text-center"
             >
               {A.paraQuem.titulo}
             </h2>
@@ -125,14 +123,14 @@ export default async function SemanaPage() {
               {A.paraQuem.itens.map((item) => (
                 <li
                   key={item}
-                  className="flex items-start gap-3 bg-white/5 rounded-xl px-5 py-4 border border-white/10 border-l-4 border-l-primary"
+                  className="flex items-start gap-3 bg-white/60 rounded-xl px-5 py-4 border border-dark/10 border-l-4 border-l-primary"
                 >
                   <CheckCircle
                     size={17}
                     className="text-primary shrink-0 mt-0.5"
                     aria-hidden="true"
                   />
-                  <span className="text-white/75 font-body text-sm leading-relaxed">
+                  <span className="text-dark/75 font-body text-sm leading-relaxed">
                     {item}
                   </span>
                 </li>
@@ -161,11 +159,14 @@ export default async function SemanaPage() {
             <p className="font-heading text-2xl sm:text-3xl font-bold text-white mb-5">
               {A.problema.conclusao}
             </p>
+            <p className="font-body text-white/85 text-lg leading-relaxed mb-6">
+              {A.problema.expansao}
+            </p>
             <span className="inline-block font-body font-semibold text-white bg-white/15 border border-white/30 rounded-full px-6 py-2.5 text-base">
               {A.problema.destaque}
             </span>
             <div className="mt-10">
-              <CtaButtonLight label="Sim, eu quero participar!" />
+              <CtaButtonLight label={A.problema.cta} />
             </div>
           </div>
         </section>
@@ -248,19 +249,14 @@ export default async function SemanaPage() {
               {A.acesso.itens.map((item) => (
                 <div
                   key={item.titulo}
-                  className="bg-white/5 rounded-2xl p-6 border border-white/10 flex gap-4 items-start hover:bg-white/8 transition-colors"
+                  className="bg-white/5 rounded-2xl p-6 border border-white/10 hover:bg-white/8 transition-colors"
                 >
-                  <span className="text-2xl shrink-0" aria-hidden="true">
-                    {item.emoji}
-                  </span>
-                  <div>
-                    <h3 className="font-heading font-bold text-white text-base">
-                      {item.titulo}
-                    </h3>
-                    <p className="text-white/55 text-sm font-body mt-1 leading-relaxed">
-                      {item.descricao}
-                    </p>
-                  </div>
+                  <h3 className="font-heading font-bold text-white text-base">
+                    {item.titulo}
+                  </h3>
+                  <p className="text-white/55 text-sm font-body mt-1 leading-relaxed">
+                    {item.descricao}
+                  </p>
                 </div>
               ))}
             </div>
@@ -273,7 +269,7 @@ export default async function SemanaPage() {
                 {A.acesso.fechamento.linha2}
               </p>
               <div className="mt-10">
-                <CtaButton label="Quero aprender agora, é gratuito!" />
+                <CtaButton label={A.acesso.fechamento.cta} />
               </div>
             </div>
           </div>

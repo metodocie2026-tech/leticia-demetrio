@@ -25,8 +25,8 @@ const TOGGLES: {
   {
     key: 'evento_semana_ativo',
     label: 'Página do Evento',
-    description: 'Ativa /semana-elegancia-na-pratica. Desativado, redireciona para o site principal.',
-    route: '/semana-elegancia-na-pratica',
+    description: 'Ativa /mapa-do-estilo-proprio. Desativado, redireciona para o site principal.',
+    route: '/mapa-do-estilo-proprio',
     icon: <CalendarCheck size={16} aria-hidden="true" />,
   },
   {
@@ -39,15 +39,15 @@ const TOGGLES: {
   {
     key: 'matriculas_ativo',
     label: 'Matrículas Abertas',
-    description: 'Ativa /semana-elegancia-na-pratica/matriculas-abertas. Desativado, redireciona para o site principal.',
-    route: '/semana-elegancia-na-pratica/matriculas-abertas',
+    description: 'Ativa /mapa-do-estilo-proprio/matriculas-abertas. Desativado, redireciona para o site principal.',
+    route: '/mapa-do-estilo-proprio/matriculas-abertas',
     icon: <ShoppingBag size={16} aria-hidden="true" />,
   },
   {
     key: 'lista_espera_ativo',
     label: 'Lista de Espera',
-    description: 'Ativa /semana-elegancia-na-pratica/lista-de-espera. Desativado, redireciona para o site principal.',
-    route: '/semana-elegancia-na-pratica/lista-de-espera',
+    description: 'Ativa /mapa-do-estilo-proprio/lista-de-espera. Desativado, redireciona para o site principal.',
+    route: '/mapa-do-estilo-proprio/lista-de-espera',
     icon: <Clock size={16} aria-hidden="true" />,
   },
 ]

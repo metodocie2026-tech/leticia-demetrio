@@ -50,7 +50,7 @@ export function InscricaoForm() {
         }),
       })
       if (!res.ok) throw new Error()
-      router.push('/semana-elegancia-na-pratica/obrigado')
+      router.push('/mapa-do-estilo-proprio/obrigado')
     } catch {
       setStatus('error')
     }

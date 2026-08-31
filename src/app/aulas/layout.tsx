@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Replays — Semana Elegância na Prática | Letícia Demétrio',
-  description: 'Acesse os replays da Semana Elegância na Prática.',
+  title: 'Replays — Mapa do Estilo Próprio | Letícia Demétrio',
+  description: 'Acesse os replays do Mapa do Estilo Próprio.',
   robots: { index: false, follow: false },
 }
 

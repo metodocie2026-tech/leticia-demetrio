@@ -3,11 +3,11 @@ import { EventHeader } from '@/components/evento/EventHeader'
 import { WhatsAppFloat } from '@/components/sections/WhatsAppFloat'
 
 export const metadata: Metadata = {
-  title: 'Você está na lista! — Semana Elegância na Prática | Letícia Demétrio',
+  title: 'Você está na lista! — Mapa do Estilo Próprio | Letícia Demétrio',
   robots: { index: false, follow: false },
 }
 
-const SUPORTE_MSG = 'Olá Letícia! Tenho dúvidas sobre a lista de espera da Semana Elegância na Prática.'
+const SUPORTE_MSG = 'Olá Letícia! Tenho dúvidas sobre a lista de espera do Mapa do Estilo Próprio.'
 
 export default function ListaEsperaObrigadaPage() {
   return (
@@ -25,7 +25,7 @@ export default function ListaEsperaObrigadaPage() {
           {/* Heading */}
           <div>
             <span className="inline-block mb-3 text-xs font-semibold tracking-[0.2em] uppercase font-body border border-primary/40 rounded-full px-4 py-1.5 bg-primary/8 text-primary">
-              Semana Elegância na Prática
+              Mapa do Estilo Próprio
             </span>
             <h1 className="font-heading text-3xl sm:text-4xl font-bold text-dark leading-tight mt-3">
               Você está na lista!
