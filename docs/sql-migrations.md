@@ -125,11 +125,11 @@ ALTER TABLE inscricoes
 
 ---
 
-## Backfill dos contatos existentes (rodar uma única vez, no cutover)
+## ⚠️ Backfill dos contatos existentes — OBSOLETO, NÃO RODAR (histórico do cutover do Brevo)
 
-Ver `docs/migracao-brevo-ses.md` §4. Todos os contatos de `inscricoes` já receberam o e-mail 1 via Brevo antes da migração — sem este backfill, o e-mail 1 seria disparado de novo pra todo mundo assim que `EMAIL_PROVIDER` virar `listmonk`.
+Este script era específico do plano original de migração com o Brevo ainda ativo em paralelo (`EMAIL_PROVIDER` binário, ver `docs/migracao-brevo-ses.md` §4 histórico) — o Brevo foi removido do projeto em 31/08/2026 e esse cenário não existe mais.
 
-**Rodar só depois de conferir manualmente no relatório do Brevo que não há contato sem ter recebido o e-mail 1.**
+**Rodar isso hoje teria o efeito contrário do desejado**: marcaria `email_1_sent_at`/`email_2_sent_at` como preenchidos pra **todo mundo** em `inscricoes`, sem filtrar por evento — incluindo os inscritos do evento atual (O Mapa do Estilo Próprio) que ainda não receberam nada. Isso apagaria o backlog que o cron (`src/app/api/cron/email-sequences/route.ts`) precisa enxergar pra disparar o e-mail 1/2 na primeira ativação. Mantido aqui só como registro histórico — não copiar/colar.
 
 ```sql
 -- Todos os contatos existentes já receberam o e-mail 1 (automação do Brevo já rodou).

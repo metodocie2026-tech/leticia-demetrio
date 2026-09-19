@@ -17,7 +17,7 @@ Passo a passo pra sair do zero até ter o SES pronto pra enviar e-mail em produ�
 ## Parte 1 — Acessar o console do SES
 
 1. Acesse [console.aws.amazon.com/ses](https://console.aws.amazon.com/ses/)
-2. No canto superior direito, escolha a **região** — recomendado `us-east-1` (N. Virginia) por ser a mais barata/estável pro SES, a menos que exista uma exigência de dados no Brasil (`sa-east-1`, São Paulo, também é opção válida se preferir manter os dados na região).
+2. No canto superior direito, escolha a **região** — este projeto usa `us-east-2` (Ohio). `us-east-1` (N. Virginia) também é uma opção comum/barata, e `sa-east-1` (São Paulo) se preferir manter os dados no Brasil, mas o que importa é escolher **uma única região e usar ela em tudo** — identidade, SMTP e (se configurar depois) SNS de bounce/complaint precisam estar na mesma região.
 3. Guarde qual região foi escolhida — vai ser usada de novo na configuração do SMTP no Listmonk.
 
 ---
@@ -105,7 +105,7 @@ Enquanto o sandbox mode não sai, o SES só entrega pra endereços verificados m
 ## Parte 5 — Gerar credenciais SMTP
 
 1. No console do SES, vá em **SMTP settings** (menu lateral, em **Configuration**).
-2. Anote o **SMTP endpoint** (algo como `email-smtp.us-east-1.amazonaws.com`) e a **porta** (`587`, com STARTTLS).
+2. Anote o **SMTP endpoint** (`email-smtp.us-east-2.amazonaws.com`, já que a região escolhida na Parte 1 foi `us-east-2`) e a **porta** (`587`, com STARTTLS).
 3. **Create SMTP credentials**.
 4. Dê um nome ao usuário IAM gerado (ex: `listmonk-smtp`).
 5. **Create** — a AWS mostra o **SMTP Username** e **SMTP Password** *só uma vez*. Copie e guarde num lugar seguro (essas credenciais vão direto na configuração do Listmonk, não são as mesmas access keys da conta AWS).
@@ -127,7 +127,7 @@ Esse passo depende de já existir uma URL pública do Listmonk pra receber o web
 
 Ao final deste tutorial, você deve ter guardado:
 
-- [ ] Região AWS escolhida (ex: `us-east-1`)
+- [ ] Região AWS escolhida (`us-east-2`)
 - [ ] Nome do subdomínio verificado (ex: `mail.leticiademetrio.com.br`)
 - [ ] SMTP endpoint + porta
 - [ ] SMTP Username + SMTP Password

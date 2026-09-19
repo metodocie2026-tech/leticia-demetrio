@@ -10,6 +10,7 @@ import { cn } from '@/utils/cn'
 interface Props {
   variant: 'light' | 'dark' | 'hero'
   ctaUrl: string
+  label?: string
 }
 
 type FormData = { nome: string; email: string; whatsapp: string }
@@ -26,7 +27,7 @@ function validate(data: FormData) {
   return err
 }
 
-export function MatriculasCta({ variant, ctaUrl }: Props) {
+export function MatriculasCta({ variant, ctaUrl, label = 'QUERO GARANTIR MINHA VAGA AGORA!' }: Props) {
   const [open, setOpen] = useState(false)
   const [form, setForm] = useState<FormData>(INITIAL)
   const [countryId, setCountryId] = useState('55')
@@ -87,7 +88,7 @@ export function MatriculasCta({ variant, ctaUrl }: Props) {
       <div className={cn('relative inline-block', variant === 'hero' && 'py-1.5')}>
         {variant === 'hero' && (
           <span
-            className="absolute -inset-2 rounded-full bg-gold opacity-60 blur-xl animate-pulse pointer-events-none"
+            className="absolute -inset-2 rounded-full bg-[#25ca68] opacity-50 blur-xl animate-pulse pointer-events-none"
             aria-hidden="true"
           />
         )}
@@ -100,10 +101,10 @@ export function MatriculasCta({ variant, ctaUrl }: Props) {
             variant === 'light' &&
               'text-sm sm:text-base px-8 sm:px-10 py-4 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 bg-white text-primary hover:bg-primary-light focus-visible:ring-white',
             variant === 'hero' &&
-              'text-base sm:text-lg px-10 sm:px-14 py-4 sm:py-5 shadow-2xl hover:shadow-[0_0_40px_rgba(240,201,135,0.6)] hover:-translate-y-1 hover:scale-105 bg-white text-primary ring-4 ring-gold focus-visible:ring-white',
+              'text-base sm:text-lg px-10 sm:px-14 py-4 sm:py-5 shadow-2xl hover:shadow-[0_0_40px_rgba(37,202,104,0.5)] hover:-translate-y-1 hover:scale-105 bg-[#25ca68] text-white hover:bg-[#36db78] focus-visible:ring-white',
           )}
         >
-          QUERO GARANTIR MINHA VAGA AGORA!
+          {label}
         </button>
       </div>
 
@@ -120,7 +121,14 @@ export function MatriculasCta({ variant, ctaUrl }: Props) {
           <div className="bg-white w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-2xl max-h-[92dvh] flex flex-col">
 
             {/* Header */}
-            <div className="gradient-bg px-6 pt-6 pb-5 relative shrink-0">
+            <div className="bg-dark px-6 pt-6 pb-5 relative shrink-0 overflow-hidden">
+              <div
+                className="absolute inset-0 pointer-events-none"
+                aria-hidden="true"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-transparent to-secondary/30" />
+                <div className="absolute -top-16 -right-10 w-48 h-48 bg-primary/25 rounded-full blur-[70px]" />
+              </div>
               <button
                 onClick={() => setOpen(false)}
                 aria-label="Fechar"
@@ -179,7 +187,7 @@ export function MatriculasCta({ variant, ctaUrl }: Props) {
                   <button
                     type="submit"
                     disabled={status === 'submitting'}
-                    className="w-full mt-1 inline-flex items-center justify-center text-center gradient-bg text-white font-body font-bold text-sm rounded-full py-3.5 shadow-lg hover:brightness-110 transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    className="w-full mt-1 inline-flex items-center justify-center text-center bg-[#25ca68] hover:bg-[#36db78] text-white font-body font-bold text-sm rounded-full py-3.5 shadow-lg transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   >
                     {status === 'submitting' ? 'Enviando...' : 'CONFIRMAR MINHA INSCRIÇÃO'}
                   </button>

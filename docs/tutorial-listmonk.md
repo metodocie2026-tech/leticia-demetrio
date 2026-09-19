@@ -27,7 +27,7 @@ Passo a passo pra colocar o Listmonk no ar, ligado ao Amazon SES, e pronto pra r
 
 1. No painel do Listmonk, vá em **Settings** → **SMTP**.
 2. **Add SMTP server**:
-   - **Host**: o SMTP endpoint anotado no tutorial do SES (ex: `email-smtp.us-east-1.amazonaws.com`)
+   - **Host**: o SMTP endpoint anotado no tutorial do SES (`email-smtp.us-east-2.amazonaws.com`, região usada por este projeto)
    - **Port**: `587`
    - **Auth protocol**: `LOGIN`
    - **Username**: o SMTP Username gerado no SES
@@ -90,11 +90,11 @@ Todas as ocorrências que existem hoje nos 5 templates de `docs/emails/`:
 | Brevo | Transacional (e-mail 1, 2) | Campanha (e-mail 3, 4, 5 e futuros) |
 |---|---|---|
 | `{{ contact.NAME }}` | `{{ .Subscriber.Name }}` | `{{ .Subscriber.Name }}` |
-| `{{ contact.SURVEY_URL }}` | `{{ .Tx.Data.survey_url }}` | *(não usado hoje nos templates de campanha)* |
-| `{{ contact.WHATSAPP_GROUP_URL }}` | `{{ .Tx.Data.whatsapp_group_url }}` | `{{ .Subscriber.Attribs.whatsapp_group_url }}` |
+| `{{ contact.SURVEY_URL }}` | `{{ .Subscriber.Attribs.survey_url }}` | *(não usado hoje nos templates de campanha)* |
+| `{{ contact.WHATSAPP_GROUP_URL }}` | `{{ .Subscriber.Attribs.whatsapp_group_url }}` | `{{ .Subscriber.Attribs.whatsapp_group_url }}` |
 | `{{ unsubscribe }}` | `{{ .Subscriber.Attribs.unsubscribe_url }}` | `{{ .Subscriber.Attribs.unsubscribe_url }}` |
 
-Por quê a diferença entre transacional e campanha (exceto na última linha): `.Tx.Data.*` só existe quando o e-mail é disparado via `POST /api/tx` (é o payload `data` que o código manda naquele momento — ver `src/lib/listmonk.ts`). Campanhas não passam por `/api/tx`, então precisam pegar o valor de algum lugar já salvo no subscriber — por isso `.Subscriber.Attribs.*`, que é preenchido no momento da inscrição por `addSubscriberToListmonk()` (mesma limitação que já existe hoje no Brevo: se o link do grupo do WhatsApp mudar depois que alguém já se inscreveu, quem já tem o attrib salvo não pega o valor novo automaticamente).
+> **Não use `.Tx.Data.*`.** `sendListmonkTransactional()` (`src/lib/listmonk.ts`) só manda `subscriber_email`, `template_id` e `content_type` pro `POST /api/tx` — nunca um `data`. Um template transacional que referencie `{{ .Tx.Data.algumacoisa }}` sempre renderiza vazio (foi exatamente o bug do botão da pesquisa no e-mail 1, corrigido em 2026-09). Tanto transacional quanto campanha usam `{{ .Subscriber.Attribs.* }}`, preenchido no momento da inscrição por `addSubscriberToListmonk()` — mesma limitação que já existe hoje no Brevo: se o link do grupo do WhatsApp mudar depois que alguém já se inscreveu, quem já tem o attrib salvo não pega o valor novo automaticamente.
 
 > **Sobre o cancelamento de inscrição — não use `{{ UnsubscribeURL }}`.** O Listmonk só registra essa função pra templates de **campanha** (confirmado no código-fonte dele) — em template transacional ela quebra a compilação com `function "UnsubscribeURL" not defined"`, e mesmo funcionando, a página nativa dele exige um UUID de campanha que um envio transacional não tem. Por isso construímos nosso próprio link de cancelamento: `{{ .Subscriber.Attribs.unsubscribe_url }}` — preenchido automaticamente pra todo subscriber em `addSubscriberToListmonk()` (`src/lib/listmonk.ts`), aponta pra `/cancelar-inscricao` no próprio site (`src/app/cancelar-inscricao/page.tsx`), que valida um token assinado (`UNSUBSCRIBE_SECRET`) e chama `PUT /api/subscribers/{id}/blocklist`. Funciona igual em templates transacionais e de campanha — use essa mesma tag em qualquer e-mail futuro.
 
